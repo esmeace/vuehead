@@ -1,0 +1,79 @@
+@keyframes float {
+	0% {
+		box-shadow: 0 5px 15px 0px rgba(0,0,0,0.6);
+		transform: translatey(0px);
+	}
+	50% {
+		box-shadow: 0 25px 15px 0px rgba(0,0,0,0.2);
+		transform: translatey(-20px);
+	}
+	100% {
+		box-shadow: 0 5px 15px 0px rgba(0,0,0,0.6);
+		transform: translatey(0px);
+	}
+}
+@keyframes headoff {
+	0% {
+		transform: translate( 0 );
+	}
+    15% {
+		transform: translateY( -20px );
+	}
+   25% {
+		transform: translateY( 170px );
+	}
+	50% {
+		transform: translateX( 45vw) translateY( 170px ) rotate( 90deg);
+	}
+	100% {
+		transform: translateX( 45vw) translateY( 700px ) ;
+	}
+}
+@keyframes headon {
+	100% {
+		transform: translateY( 0 );
+	}
+}
+@keyframes moveleft {
+	0% {
+		transform: translateX( 0 );
+	}
+    20% {
+		transform: translateX( -26% );
+	}
+    40% {
+		transform: translateX( -54% );
+	}
+    60% {
+		transform: translateX( -82% );
+	}
+    80% {
+		transform: translateX( -110% );
+	}
+    100% {
+		transform: translateX( -137% );
+	}
+}
+#heads {
+    animation: moveleft 5s infinite ease-in-out;
+}
+@keyframes fall {
+	0% {
+		transform: translateY( 0 );
+	}
+    100% {
+		transform: translateY( 1000px );
+	}
+}
+#video {
+    animation: fall 2.5s 3 linear;
+}
+#files {
+    animation: fall 1.5s .5s 3 linear;
+}
+#pic {
+    animation: fall 2s .7s 3 linear;
+}
+#doc {
+    animation: fall 3s .1s 3 linear;
+}

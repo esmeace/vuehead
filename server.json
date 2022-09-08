@@ -1,0 +1,8 @@
+{
+    "name":"vuehead",
+    "web":{
+        "rewrites":{
+            "enable":"true"
+        }
+    }
+}

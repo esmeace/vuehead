@@ -1,0 +1,138 @@
+html, body, #app {
+    height: 100%;
+    font-size: 1.4rem;
+}
+.corner-logo {
+    height: 50px;
+    margin: 1rem;
+}
+.cover-logo {
+    max-width: 300px;
+    position: absolute;
+    left: calc( 50vw - 150px );
+    top: 5vmin;
+}
+.video-bg{
+    position: absolute;
+    left:0%;
+    top:0px;
+    right:0%;
+    bottom: 0px;
+
+    video {
+        width: 100%;
+        height: auto;
+    }
+}
+.overlay {
+    position: absolute;
+    background-color: rgba(21, 3, 92, 0.5);
+    top: 0px;
+    left: 0px;
+    bottom: 0px;
+    right: 0px;
+}
+.overlay-50 {
+    background-color: rgba(21, 3, 92, 0.5);
+}
+.cb-speaking {
+    h2 {
+        white-space: nowrap;
+        font-size: 2.2rem;
+        font-family: Arial, Helvetica, sans-serif;
+
+    }
+    img {
+        border: 5px white solid;
+        border-radius: 50%;
+        overflow: hidden;
+        box-shadow: 0 5px 15px 0px rgba(0,0,0,0.6);
+        transform: translatey(0px);
+        animation: float 6s ease-in-out infinite;
+    }
+}
+.cover-astro-body {
+    height: 240px;
+    position: absolute;
+    left: 46px;
+    bottom: 0px;
+}
+.cover-astro-head {
+    height: 280px;
+    position: absolute;
+    left: 0px;
+    bottom: 194px;
+    transform-origin: center;
+    animation: headoff 6s forwards ease-in-out
+}
+.cover-astro-head-02 {
+    height: 280px;
+    position: absolute;
+    left: 0px;
+    bottom: 194px;
+    transform-origin: center;
+    transform: translateY( -850px );
+    animation: headon 1s 6s forwards ease-in-out
+}
+.cb-speaking {
+    width: 75vw;
+}
+.cb-traditional-vs-headless {
+    h2 {
+        font-size: 1.8rem;
+        white-space: nowrap;
+    }
+    .sequence {
+        align-items: center;
+        background-color: #e2e2e2;
+        border-radius: .8rem;
+        display: flex;
+        flex-direction: column;
+        height: 90%;
+        margin: 1rem;
+        padding: .8rem 1rem;
+    }
+    img {
+        max-width: 200px;
+        width: 25vmin;
+        
+    }
+    img:first-child {
+        max-width: 100px;
+        width: 10vmin;
+    }
+}
+.cb-the-head {
+    img {
+        position: absolute;
+        left: 0;
+        width: 50vw;
+        bottom: -6px;
+    }
+}
+.cb-body {
+    img {
+        position: absolute;
+        left: 2rem;
+        width: 35vw;
+        bottom: 0px;
+    }
+}
+.cb-contentstore, .cb-headless-cms {
+    width: 90%;
+    img {
+        border-radius: 1rem;
+        max-width: 90%;
+    }
+    .col {
+        display: flex;
+        align-items: center;
+    }
+}
+.trans-opacity {
+    opacity: 1;
+    transition: opacity .5s;
+}
+.trans-opacity.invisible {
+    opacity: 0;
+}
