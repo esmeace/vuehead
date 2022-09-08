@@ -60,7 +60,7 @@ export default {
         fetchSlides() {
             slidesApi.fetch( "headlesscb-slides", { "includes" : "children.renderedContent,children.customFields"} )
 				.then( ( result ) => {
-                    this.slides = result.data.data.children ;
+                    this.slides = result.data.data.children.sort((a, b) => a.order - b.order) ;
                     this.setInitialSlide();
 				} )
 				.catch( ( e ) => {
