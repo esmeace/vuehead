@@ -6,7 +6,12 @@ elixir.config.mergeConfig({
         alias: {
           vue: '@vue/compat'
 		}
-    }
+    },
+	plugins : [
+        new webpack.DefinePlugin( {
+            __VUE_OPTIONS_API__ : true
+        } )
+    ]
     // plugins: [
 	// 	new webpack.ProvidePlugin( {
     //     	'vue' : "vue/dist/vue.esm-bundler.js"
