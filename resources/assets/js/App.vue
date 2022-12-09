@@ -12,6 +12,7 @@
                 :is="getComponent( slide )" 
                 :content="slide.renderedContent" 
                 :class="getContentClass( slide.slug )"
+                :lang="lang"
                 :slideIdx="slideIdx"
             ></component>
         </slide>
@@ -45,12 +46,14 @@ export default {
     },
     data() {
         return {
-            slides: []
+            slides: [],
+            lang: "es"
         }
     },
     computed: {
         globalData() { return window.globalData; },
-        baseUrl() { return "http://127.0.0.1:61670/" }
+        baseUrl() { return "http://127.0.0.1:61670/" },
+        slidesSlug() { return this.lang === 'en' ? 'headlesscb-slides' : 'headlesscb-slides-sp' }
     },
     mounted() {
         console.log( window.location.hash );
@@ -58,7 +61,7 @@ export default {
     },
     methods: {
         fetchSlides() {
-            slidesApi.fetch( "headlesscb-slides", { "includes" : "children.renderedContent,children.customFields"} )
+            slidesApi.fetch( this.slidesSlug, { "includes" : "children.renderedContent,children.customFields" } )
 				.then( ( result ) => {
                     this.slides = result.data.data.children.sort((a, b) => a.order - b.order) ;
                     this.setInitialSlide();

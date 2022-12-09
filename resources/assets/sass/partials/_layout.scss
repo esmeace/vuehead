@@ -129,6 +129,11 @@ html, body, #app {
         align-items: center;
     }
 }
+.cb-sponsors {
+    img {
+        max-height: 200px;
+    }
+}
 .trans-opacity {
     opacity: 1;
     transition: opacity .5s;

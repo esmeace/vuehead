@@ -1,7 +1,9 @@
 <template>
     <div>
         <img src="/includes/static/images/ortus-logo.svg" alt="Ortus Logo" class="corner-logo position-absolute top-0 end-0"/>
-        <img src="/includes/static/images/logo-ITB-2022.svg" alt="Into the Box 2022" class="cover-logo" @click="toggleSound()"/>
+        
+        <img :src="logoPath" alt="Into the Box" class="cover-logo" @click="toggleSound()"/>
+        
         <div class="cover-astro">
             <img src="/includes/static/images/astro-head-02.svg" alt="astro-head-2" class="cover-astro-head-02"/>
             <img src="/includes/static/images/astro-head-01.svg" alt="astro-head" class="cover-astro-head"/>
@@ -22,12 +24,21 @@ export default {
         content: {
             type: String,
             required: true
+        },
+        lang: {
+            type: String,
+            default: "en"
         }
     },
     data() { 
         return {
             isSoundOn: false
         };
+    },
+    computed: {
+        logoPath() {
+            return this.lang == 'en' ? "/includes/static/images/logo-ITB-2022.svg" :  "/includes/static/images/logo-itb-latam.svg";
+        }
     },
     mounted() {
         this.jingle = document.getElementById("audio-intro"); 
