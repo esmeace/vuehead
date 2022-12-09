@@ -141,3 +141,13 @@ html, body, #app {
 .trans-opacity.invisible {
     opacity: 0;
 }
+@media print {
+    .cover-astro-body {
+        height: 190px;
+    }
+    .cover-astro-head-02 {
+        height: 190px;
+        left: 27px;
+        bottom: 154px;
+    }
+}
