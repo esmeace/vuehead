@@ -1,1 +1,31 @@
+[ data-theme="itb-2022" ] {
+    --itb-title-font: 'Orbitron', Arial, Helvetica, sans-serif;
+    --itb-title-padding-bottom: auto;
+    --itb-cover-content-position: relative;
+    --itb-cover-content-padding: auto;
+    --itb-cover-content-height: auto;
+    --itb-cover-content-width: auto;
+    --itb-cover-text-align: center;
+
+    --itb-bg-color-primary: #CEFF00;
+    --itb-on-primary: #000000;
+    --itb-text-primary: #CEFF00;
+
+}
+[ data-theme="itb-2023" ] {
+    --itb-title-font: 'Open Sans', Arial, Helvetica, sans-serif;
+    --itb-title-padding-bottom: 20vh;
+    --itb-cover-content-position: relative;
+    --itb-cover-content-width: 100%;
+    --itb-cover-content-height: 100%;
+    --itb-cover-content-padding: 0 5%;
+    --itb-cover-text-align: left;
+
+    --itb-bg-color-primary: #CEFF00;
+    --itb-on-primary: #000000;
+    --itb-text-primary: #CEFF00;
+    --vc-nav-background-color: var( --itb-bg-color-primary );
+    
+}
+
 $base-font-size : 2vw;

@@ -8,9 +8,9 @@ html, body, #app {
 }
 .cover-logo {
     max-width: 300px;
-    position: absolute;
-    left: calc( 50vw - 150px );
-    top: 5vmin;
+    // position: absolute;
+    // left: calc( 50vw - 150px );
+    // top: 5vmin;
 }
 .video-bg{
     position: absolute;
@@ -63,7 +63,7 @@ html, body, #app {
     left: 0px;
     bottom: 194px;
     transform-origin: center;
-    animation: headoff 6s forwards ease-in-out
+    animation: headoff 6s forwards ease-in-out;
 }
 .cover-astro-head-02 {
     height: 280px;
@@ -73,6 +73,62 @@ html, body, #app {
     transform-origin: center;
     transform: translateY( -850px );
     animation: headon 1s 6s forwards ease-in-out
+}
+.cb-cover {
+    padding: var( --itb-cover-content-padding );
+    text-align: var( --itb-cover-text-align );
+    width: var( --itb-cover-content-width );
+    height: var( --itb-cover-content-height );
+}
+[ data-theme="itb-2023" ] {
+    .cover-logo { 
+        max-width: 100px;
+        margin: 20px 0px 40px;
+    }
+    .corner-logo {
+        height: 100px;
+    }
+    .cb-cover {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        
+        .slide-footer {
+            color: var( --itb-text-primary );
+
+            span {
+                font-size: 1rem;
+            }
+            
+            ul {
+                padding-left: 0;
+                list-style: none;
+                li:not(:last-child) {
+                    margin-right: 0.5rem;
+                }
+                
+                li {
+                    color: #fff;
+                    display: inline-block;
+                }
+            }
+            img {
+                width: 25vw;
+                margin: 15px 0px;
+            }
+            svg {
+                width: 50vw;
+            }
+        }
+    }
+    .cover-astro-head-02, .cover-astro-head {
+        right: 136px;
+        left: auto;
+    }
+    .cover-astro-body {
+        right: 46px;
+        left: auto;
+    }
 }
 .cb-speaking {
     width: 75vw;

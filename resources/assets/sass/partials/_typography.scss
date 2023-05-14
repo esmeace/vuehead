@@ -3,8 +3,9 @@ body {
     font-size: $base-font-size;
 }
 h1 {
-    font-family: 'Orbitron', Arial, Helvetica, sans-serif;
-    font-size: 10vmin;
+    font-family: var( --itb-title-font );
+    font-size: 9vmin;
+    padding-bottom: var(  --itb-title-padding-bottom );
     span {
         font-size: 6vmin;
         display: block;
@@ -12,7 +13,7 @@ h1 {
 }
 h2 {
     font-size: 2.3rem;
-    font-family: 'Orbitron', Arial, Helvetica, sans-serif;
+    font-family:  var( --itb-title-font );
     span {
         font-size: 2rem;
         display: block;
@@ -20,4 +21,12 @@ h2 {
 }
 ul {
     text-align: left;
+}
+.title-label {
+    background-color: var(  --itb-bg-color-primary );
+    border-radius: 30px;
+    color: var( --itb-on-primary );
+    display: table;
+    padding: 8px 15px;
+    font-size: 4vmin;
 }

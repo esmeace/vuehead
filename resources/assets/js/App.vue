@@ -14,6 +14,7 @@
                 :class="getContentClass( slide.slug )"
                 :lang="lang"
                 :slideIdx="slideIdx"
+                :theme="theme"
             ></component>
         </slide>
 
@@ -47,13 +48,16 @@ export default {
     data() {
         return {
             slides: [],
-            lang: "es"
+            lang: "en",
+            contentStore: "headlesscb-100-mins-slides",
+            // contentStore: "headlesscb-slides",
+            theme: "itb-2023"
         }
     },
     computed: {
         globalData() { return window.globalData; },
         baseUrl() { return "http://127.0.0.1:61670/" },
-        slidesSlug() { return this.lang === 'en' ? 'headlesscb-slides' : 'headlesscb-slides-sp' }
+        slidesSlug() { return this.lang === 'en' ? this.contentStore : this.contentStore + '-sp' }
     },
     mounted() {
         console.log( window.location.hash );
