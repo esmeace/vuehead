@@ -11,6 +11,9 @@
     --itb-on-primary: #000000;
     --itb-text-primary: #CEFF00;
 
+    --itb-link-color: #ffffff;
+    --itb-link-hover-color: var( --itb-bg-color-primary );
+
 }
 [ data-theme="itb-2023" ] {
     --itb-title-font: 'Open Sans', Arial, Helvetica, sans-serif;
@@ -25,6 +28,9 @@
     --itb-on-primary: #000000;
     --itb-text-primary: #CEFF00;
     --vc-nav-background-color: var( --itb-bg-color-primary );
+
+    --itb-link-color: #FFBA00;
+    --itb-link-hover-color: var( --itb-bg-color-primary );
     
 }
 

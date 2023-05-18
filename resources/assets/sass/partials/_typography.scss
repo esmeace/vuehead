@@ -22,6 +22,14 @@ h2 {
 ul {
     text-align: left;
 }
+
+a { 
+    color: var( --itb-link-color );
+
+    &:hover {
+    color: var( --itb-link-hover-color );
+    }
+}
 .title-label {
     background-color: var(  --itb-bg-color-primary );
     border-radius: 30px;
