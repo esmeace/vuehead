@@ -35,11 +35,13 @@ component extends="coldbox.system.EventHandler" {
 	function onRequestStart( event, rc, prc ) {
 		param prc.globalData = {};
 		/// TEMP: MOVE GET TO SERVICE AND token to LOCAL STORAGE
-		cfhttp(method="POST", charset="utf-8", url="http://127.0.0.1:61670/cbapi/v1/login", result="result") {
-			cfhttpparam(name="username", type="url", value="apiuser");
-			cfhttpparam(name="password", type="url", value="T0pS3cr3t1234!");
+		cfhttp( method="POST", charset="utf-8", url=getSystemSetting( "API_ROOT" ) & "/login", result="result" ) {
+			cfhttpparam( name="username", type="url", value=getSystemSetting( "API_USER" ));
+			cfhttpparam( name="password", type="url", value=getSystemSetting( "API_PW" ));
 		}
 		prc.globalData[ "jwt" ] = deserializeJSON( result.filecontent ).data.tokens.access_token;
+		prc.globalData[ "apiRoot" ] = getSystemSetting( "API_ROOT" );
+		prc.globalData[ "imgsBaseURL" ] = getSystemSetting( "IMGS_BASE_URL" );
 		
 	}
 
@@ -47,7 +49,6 @@ component extends="coldbox.system.EventHandler" {
 	}
 
 	function onSessionStart( event, rc, prc ) {
-		
 	}
 
 	function onSessionEnd( event, rc, prc ) {

@@ -50,13 +50,13 @@ export default {
             slides: [],
             lang: "en",
             contentStore: "headlesscb-100-mins-slides",
-            // contentStore: "headlesscb-slides",
+            // contentStore: "presentation-slides/headlesscb-slides",
             theme: "itb-2023"
         }
     },
     computed: {
         globalData() { return window.globalData; },
-        baseUrl() { return "http://127.0.0.1:61670/" },
+        baseUrl() { return this.globalData.imgsBaseURL },
         slidesSlug() { return this.lang === 'en' ? this.contentStore : this.contentStore + '-sp' }
     },
     mounted() {
@@ -85,7 +85,7 @@ export default {
             var styles = { "backgroundColor" : "#000048" }
             var bgImage = this.getValuefromFields( slide.customFields, "bgImage" );
             if( bgImage ) {
-                styles.backgroundImage = "url(" + this.baseUrl + bgImage + ")";
+                styles.backgroundImage = "url(" + this.baseUrl + "/" + bgImage + ")";
                 styles.backgroundSize = "cover";
                 styles.backgroundPosition = "center";
                 styles.backgroundRepeat = "no-repeat";
