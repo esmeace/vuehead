@@ -1,6 +1,6 @@
 <cfoutput>
 <!DOCTYPE html>
-<html lang="en" data-theme="itb-2023">
+<html lang="en" data-theme="itb-2022">
 <head>
 	<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">

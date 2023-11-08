@@ -49,9 +49,9 @@ export default {
         return {
             slides: [],
             lang: "en",
-            contentStore: "headlesscb-100-mins-slides",
-            // contentStore: "presentation-slides/headlesscb-slides",
-            theme: "itb-2023"
+            // contentStore: "headlesscb-100-mins-slides",
+            contentStore: "presentation-slides-headlesscb-slides",
+            theme: "itb-2022"
         }
     },
     computed: {
