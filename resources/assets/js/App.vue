@@ -67,12 +67,19 @@ export default {
         fetchSlides() {
             slidesApi.fetch( this.slidesSlug, { "includes" : "children.renderedContent,children.customFields" } )
 				.then( ( result ) => {
-                    this.slides = result.data.data.children.sort((a, b) => a.order - b.order) ;
+                    this.slides = this.correctMediaURL(result.data.data.children.sort((a, b) => a.order - b.order));
                     this.setInitialSlide();
 				} )
 				.catch( ( e ) => {
 					console.error( e );
 				} );
+        },
+        correctMediaURL(slides) {
+            var corrected = slides;
+            corrected.forEach(slide => {
+               slide.renderedContent = slide.renderedContent.replaceAll(`<img src="/__media/`, `<img src="${this.baseUrl}/__media/`);
+            });
+            return corrected;
         },
         getSlugEnd( slug ) {
             var a =  slug.split( "/" );
