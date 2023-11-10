@@ -2,7 +2,7 @@
     <div>
         <div class="slide-header">
             <img :src="`/includes/static/images/header-logo-${theme}.svg`" alt="Ortus" class="corner-logo position-absolute top-0 end-0"/>
-        
+
             <img :src="logoPath" alt="Into the Box" class="cover-logo" @click="toggleSound()"/>
         </div>
 
@@ -36,19 +36,22 @@ export default {
             default: "itb"
         }
     },
-    data() { 
+    data() {
         return {
             isSoundOn: false
         };
     },
+
     computed: {
         logoPath() {
             return this.lang == 'en' ? `/includes/static/images/logo-${this.theme}.svg` :  "/includes/static/images/logo-itb-latam.svg";
         }
     },
+
     mounted() {
-        this.jingle = document.getElementById("audio-intro"); 
+        this.jingle = document.getElementById( "audio-intro" );
     },
+
     methods: {
         playSound(){
             this.jingle.currentTime = 0;
@@ -56,10 +59,12 @@ export default {
             this.jingle.play();
             this.jingle.volume = 0.2;
         },
+
         pauseSound(){
             this.isSoundOn = false;
             this.jingle.pause();
         },
+
         toggleSound() {
             if( this.isSoundOn ) {
                 this.pauseSound();

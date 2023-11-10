@@ -20,14 +20,9 @@
         "readme.md"
     ],
     "devDependencies":{
-        "testbox":"^4.2.1+400"
-    },
-    "installPaths":{
-        "coldbox":"coldbox/",
-        "testbox":"testbox/"
     },
     "dependencies":{
-        "coldbox":"^6.0.0"
+        "coldbox":"^7.0.0"
     },
     "scripts":{}
 }

@@ -2,15 +2,16 @@
     <div v-if="!slides.length">
         Loading...
     </div>
+
     <carousel :items-to-show="1" ref="preso" v-else>
-        <slide 
-            v-for="( slide, slideIdx ) in slides" 
-            :key="slide.contentID" 
+        <slide
+            v-for="( slide, slideIdx ) in slides"
+            :key="slide.contentID"
             :style="getSlideStyles( slide )"
         >
             <component
-                :is="getComponent( slide )" 
-                :content="slide.renderedContent" 
+                :is="getComponent( slide )"
+                :content="slide.renderedContent"
                 :class="getContentClass( slide.slug )"
                 :lang="lang"
                 :slideIdx="slideIdx"
@@ -23,6 +24,7 @@
         <pagination />
         </template>
     </carousel>
+
 </template>
 
 <script>
@@ -54,46 +56,58 @@ export default {
             theme: "itb-2023"
         }
     },
+
     computed: {
         globalData() { return window.globalData; },
-        baseUrl() { return "http://127.0.0.1:61670/" },
+        baseUrl() { return window.apiUrl; },
         slidesSlug() { return this.lang === 'en' ? this.contentStore : this.contentStore + '-sp' }
     },
+
     mounted() {
         console.log( window.location.hash );
         this.fetchSlides();
     },
+
     methods: {
+
         fetchSlides() {
-            slidesApi.fetch( this.slidesSlug, { "includes" : "children.renderedContent,children.customFields" } )
+            slidesApi.fetch(
+					this.slidesSlug,
+					{ "includes" : "children.renderedContent,children.customFields" }
+				)
 				.then( ( result ) => {
-                    this.slides = result.data.data.children.sort((a, b) => a.order - b.order) ;
+                    this.slides = result.data.data.children.sort( (a, b) => a.order - b.order ) ;
                     this.setInitialSlide();
 				} )
 				.catch( ( e ) => {
+					alert( "Error getting slides" + e );
 					console.error( e );
 				} );
         },
+
         getSlugEnd( slug ) {
-            var a =  slug.split( "/" );
+            let a =  slug.split( "/" );
             return a[ a.length - 1 ];
         },
+
         getContentClass( slug ) {
             return "cb-" + this.getSlugEnd( slug );
         },
+
         getSlideStyles( slide ){
-            var styles = { "backgroundColor" : "#000048" }
-            var bgImage = this.getValuefromFields( slide.customFields, "bgImage" );
+            let styles = { "backgroundColor" : "#000048" }
+            let bgImage = this.getValuefromFields( slide.customFields, "bgImage" );
             if( bgImage ) {
-                styles.backgroundImage = "url(" + this.baseUrl + bgImage + ")";
-                styles.backgroundSize = "cover";
-                styles.backgroundPosition = "center";
-                styles.backgroundRepeat = "no-repeat";
+                styles.backgroundImage 		= "url(" + this.baseUrl + bgImage + ")";
+                styles.backgroundSize 		= "cover";
+                styles.backgroundPosition 	= "center";
+                styles.backgroundRepeat 	= "no-repeat";
             }
             return styles;
         },
+
         getComponent( slide ){
-            var type = this.getValuefromFields( slide.customFields, "type" );
+            let type = this.getValuefromFields( slide.customFields, "type" );
             switch( type ) {
                 case 'cover':
                     return "Cover";
@@ -103,21 +117,25 @@ export default {
                     return "SequenceSlide";
                 default:
                     return "DefaultSlide";
-            } 
+            }
         },
+
         getValuefromFields( customFields, key ){
-            var fieldIdx = customFields.map( field => field.key ).indexOf( key );
+            let fieldIdx = customFields.map( field => field.key ).indexOf( key );
             if( fieldIdx > -1 ){
-                return customFields[ fieldIdx ].value !== " " ?  customFields[ fieldIdx ].value : null; 
+                return customFields[ fieldIdx ].value !== " " ?  customFields[ fieldIdx ].value : null;
             } else {
                 return null
             }
         },
+
         setInitialSlide(){
-            var self = this;
+            let self = this;
             if( window.location.hash ) {
               console.log( 'here' );
-              var idx = this.slides.map( slide => "#"+self.getSlugEnd( slide.slug ) ).indexOf( window.location.hash );
+              let idx = this.slides
+			  	.map( slide => "#"+self.getSlugEnd( slide.slug ) )
+			  	.indexOf( window.location.hash );
               if( idx > -1 ){
                 console.log( this.$refs.preso );
                 console.log( idx );
@@ -125,7 +143,7 @@ export default {
                     this.$refs.preso.slideTo( idx );
                 } );
               }
-            } 
+            }
         }
     }
 };
