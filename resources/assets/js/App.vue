@@ -51,15 +51,14 @@ export default {
         return {
             slides: [],
             lang: "en",
-            // contentStore: "headlesscb-100-mins-slides",
-            contentStore: "presentation-slides-headlesscb-slides",
+            contentStore: "headlesscb-slides-sp",
             theme: "itb-2022"
         }
     },
 
     computed: {
         globalData() { return window.globalData; },
-        baseUrl() { return this.globalData.imgsBaseURL },
+        baseUrl() { return this.globalData.imageBaseUrl; },
         slidesSlug() { return this.lang === 'en' ? this.contentStore : this.contentStore + '-sp' }
     },
 
@@ -76,7 +75,7 @@ export default {
 					{ "includes" : "children.renderedContent,children.customFields" }
 				)
 				.then( ( result ) => {
-                    this.slides = this.correctMediaURL(result.data.data.children.sort((a, b) => a.order - b.order));
+                    this.slides = this.correctMediaURL( result.data.data.children.sort( ( a, b ) => a.order - b.order ) );
                     this.setInitialSlide();
 				} )
 				.catch( ( e ) => {
@@ -85,13 +84,14 @@ export default {
 				} );
         },
 
-        correctMediaURL(slides) {
-            var corrected = slides;
+        correctMediaURL( slides ) {
+            let corrected = slides;
             corrected.forEach(slide => {
-               slide.renderedContent = slide.renderedContent.replaceAll(`<img src="/__media/`, `<img src="${this.baseUrl}/__media/`);
+               slide.renderedContent = slide.renderedContent.replaceAll( `<img src="/__media/`, `<img src="${this.baseUrl}/__media/` );
             });
             return corrected;
         },
+
         getSlugEnd( slug ) {
             let a =  slug.split( "/" );
             return a[ a.length - 1 ];

@@ -34,7 +34,6 @@
 
 	<script type="application/javascript">
 		window[ "globalData" ] = #toJson( prc.globalData )#;
-		window[ "apiUrl" ] = "#getSetting( "apiUrl" )#";
 	</script>
 
 	<script src="#html.elixirPath( "js/runtime.js" )#"></script>
