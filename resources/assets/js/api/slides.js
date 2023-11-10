@@ -1,6 +1,6 @@
 import Axios from "axios";
 
-const urlRoot = `${window.globalData.apiUrl}/sites/default/contentStore`;
+const urlRoot = `${window.globalData.apiUrl}/cbapi/v1/sites/default/contentStore`;
 
 const defaultAPI = Axios.create( {
 	baseURL : urlRoot,
