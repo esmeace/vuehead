@@ -51,15 +51,15 @@ export default {
         return {
             slides: [],
             lang: "en",
-            contentStore: "headlesscb-100-mins-slides",
-            // contentStore: "headlesscb-slides",
-            theme: "itb-2023"
+            // contentStore: "headlesscb-100-mins-slides",
+            contentStore: "presentation-slides-headlesscb-slides",
+            theme: "itb-2022"
         }
     },
 
     computed: {
         globalData() { return window.globalData; },
-        baseUrl() { return window.apiUrl; },
+        baseUrl() { return this.globalData.imgsBaseURL },
         slidesSlug() { return this.lang === 'en' ? this.contentStore : this.contentStore + '-sp' }
     },
 
@@ -76,7 +76,7 @@ export default {
 					{ "includes" : "children.renderedContent,children.customFields" }
 				)
 				.then( ( result ) => {
-                    this.slides = result.data.data.children.sort( (a, b) => a.order - b.order ) ;
+                    this.slides = this.correctMediaURL(result.data.data.children.sort((a, b) => a.order - b.order));
                     this.setInitialSlide();
 				} )
 				.catch( ( e ) => {
@@ -85,6 +85,13 @@ export default {
 				} );
         },
 
+        correctMediaURL(slides) {
+            var corrected = slides;
+            corrected.forEach(slide => {
+               slide.renderedContent = slide.renderedContent.replaceAll(`<img src="/__media/`, `<img src="${this.baseUrl}/__media/`);
+            });
+            return corrected;
+        },
         getSlugEnd( slug ) {
             let a =  slug.split( "/" );
             return a[ a.length - 1 ];
@@ -98,10 +105,10 @@ export default {
             let styles = { "backgroundColor" : "#000048" }
             let bgImage = this.getValuefromFields( slide.customFields, "bgImage" );
             if( bgImage ) {
-                styles.backgroundImage 		= "url(" + this.baseUrl + bgImage + ")";
-                styles.backgroundSize 		= "cover";
-                styles.backgroundPosition 	= "center";
-                styles.backgroundRepeat 	= "no-repeat";
+                styles.backgroundImage = "url(" + this.baseUrl + "/" + bgImage + ")";
+                styles.backgroundSize = "cover";
+                styles.backgroundPosition = "center";
+                styles.backgroundRepeat = "no-repeat";
             }
             return styles;
         },
