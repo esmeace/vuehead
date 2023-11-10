@@ -51,7 +51,6 @@ export default {
         return {
             slides: [],
             lang: "en",
-            contentStore: "headlesscb-slides-sp",
             theme: "itb-2022"
         }
     },
@@ -59,7 +58,7 @@ export default {
     computed: {
         globalData() { return window.globalData; },
         baseUrl() { return this.globalData.imageBaseUrl; },
-        slidesSlug() { return this.lang === 'en' ? this.contentStore : this.contentStore + '-sp' }
+        slidesSlug() { return this.lang === 'en' ? this.globalData.presentation : this.globalData.presentation + '-sp' }
     },
 
     mounted() {

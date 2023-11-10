@@ -44,10 +44,10 @@ component extends="coldbox.system.EventHandler" {
 			cfhttpparam( name="username", type="formfield", value=getSetting( "apiUsername" ) );
 			cfhttpparam( name="password", type="formfield", value=getSetting( "apiPassword" ) );
 		}
-
-		prc.globalData[ "jwt" ] = deserializeJSON( result.filecontent ).data.tokens.access_token;
-		prc.globalData[ "apiUrl" ] = getSetting( "apiUrl" );
-		prc.globalData[ "imageBaseUrl" ] = "";
+		prc.globalData[ "presentation" ]	= getSetting( "presentation" );
+		prc.globalData[ "jwt" ] 			= deserializeJSON( result.filecontent ).data.tokens.access_token;
+		prc.globalData[ "apiUrl" ] 			= getSetting( "apiUrl" );
+		prc.globalData[ "imageBaseUrl" ] 	= "";
 	}
 
 	function onRequestEnd( event, rc, prc ) {
