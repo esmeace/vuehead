@@ -44,6 +44,15 @@ component extends="coldbox.system.EventHandler" {
 			cfhttpparam( name="username", type="formfield", value=getSetting( "apiUsername" ) );
 			cfhttpparam( name="password", type="formfield", value=getSetting( "apiPassword" ) );
 		}
+
+		if( result.status_code != 200 ) {
+			throw(
+				message : "Unable to login to API : #result.filecontent#",
+				detail: result.errordetail,
+				type: "ConnectionFailure"
+			);
+		}
+
 		prc.globalData[ "presentation" ]	= getSetting( "presentation" );
 		prc.globalData[ "jwt" ] 			= deserializeJSON( result.filecontent ).data.tokens.access_token;
 		prc.globalData[ "apiUrl" ] 			= getSetting( "apiUrl" );
