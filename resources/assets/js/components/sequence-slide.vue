@@ -2,9 +2,9 @@
 	TODO: What is this for?
  -->
 <template>
-    <div class="sequence-slide">
+    <div class = "sequence-slide">
         <slot>
-            <div v-html="content" class="position-relative" ref="content"></div>
+            <div v-html = "content" class = "position-relative" ref = "content"></div>
         </slot>
     </div>
 </template>
@@ -12,15 +12,17 @@
 export default {
     props: {
         content: {
-            type: String,
+            type    : String,
             required: true
         }
     },
+
     data() {
         return {};
     },
+
     mounted() {
-        let seqs = [...this.$refs.content.getElementsByClassName( "sequence" ) ];
+        let seqs = [ ...this.$refs.content.getElementsByClassName( "sequence" ) ];
         for( var i in seqs ){
             this.initSequence( seqs[ i ] );
         }
@@ -38,11 +40,13 @@ export default {
         //     }
         // )
     },
+
     methods: {
-        initSequence( seq) {
-            var self = this;
-            let aNodes = [...seq.childNodes]
-            let firstNode = null;
+
+        initSequence( seq ) {
+            var self        = this;
+            let aNodes      = [ ...seq.childNodes ]
+            let firstNode   = null;
             let hiddenNodes = [];
             //console.log( aNodes );
             aNodes.forEach(
@@ -62,8 +66,11 @@ export default {
             }
 
         },
+
         showElement( node ){
-            if( node.classList ) node.classList.remove( 'invisible' );
+            if( node.classList ){
+				node.classList.remove( 'invisible' );
+			}
         }
     }
 };

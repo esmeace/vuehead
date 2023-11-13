@@ -57,7 +57,6 @@ export default {
         return {
             slides: [],
             lang  : "en",
-			// TODO: What's the point of this?
             theme : "itb-2022",
 			slideBackgroundColor : "#000048"
         }

@@ -35,14 +35,17 @@ component extends="coldbox.system.EventHandler" {
 	function onRequestStart( event, rc, prc ) {
 		param prc.globalData = {};
 
+		writeDump( var=SERVER, top = 5 );
+		abort;
+
 		cfhttp(
 			method="POST",
 			charset="utf-8",
-			url="#getSetting( "apiUrl" )#/cbapi/v1/login",
+			url="#getSystemSetting( "HCMS_URL" )#/cbapi/v1/login",
 			result="local.result"
 		) {
-			cfhttpparam( name="username", type="formfield", value=getSetting( "apiUsername" ) );
-			cfhttpparam( name="password", type="formfield", value=getSetting( "apiPassword" ) );
+			cfhttpparam( name="username", type="formfield", value=getSystemSetting( "HCMS_USERNAME" ) );
+			cfhttpparam( name="password", type="formfield", value=getSystemSetting( "HCMS_PASSWORD" ) );
 		}
 
 		if( result.status_code != 200 ) {
@@ -53,10 +56,10 @@ component extends="coldbox.system.EventHandler" {
 			);
 		}
 
-		prc.globalData[ "presentation" ]	= getSetting( "presentation" );
+		prc.globalData[ "presentation" ]	= getSystemSetting( "HCMS_PRESENTATION" );
 		prc.globalData[ "jwt" ] 			= deserializeJSON( result.filecontent ).data.tokens.access_token;
-		prc.globalData[ "apiUrl" ] 			= getSetting( "apiUrl" );
-		prc.globalData[ "imageBaseUrl" ] 	= getSetting( "apiUrl" );
+		prc.globalData[ "apiUrl" ] 			= getSystemSetting( "HCMS_URL" );
+		prc.globalData[ "imageBaseUrl" ] 	= getSetting( "HCMS_URL" );
 	}
 
 	function onRequestEnd( event, rc, prc ) {

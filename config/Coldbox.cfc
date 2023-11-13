@@ -60,10 +60,6 @@
 		 * --------------------------------------------------------------------------
 		 */
 		settings = {
-			apiUrl = "http://127.0.0.1:61670",
-			apiUsername = "apiUser",
-			apiPassword = "T0pS3cr3t1234!",
-			presentation = "headlesscb-slides"
 		};
 
 		/**
