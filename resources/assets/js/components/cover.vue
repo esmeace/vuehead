@@ -51,7 +51,6 @@ export default {
 
     mounted() {
         this.jingle = document.getElementById( "audio-intro" );
-		this.toggleSound();
     },
 
     methods: {
