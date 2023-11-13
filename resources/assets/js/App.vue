@@ -83,12 +83,16 @@ export default {
 				} );
         },
 
+		/**
+		 * This is done so that in the CMS the content can have relative images and
+		 * the UI then re-links them back to the API
+		 * @param {*} slides
+		 */
         correctMediaURL( slides ) {
-            let corrected = slides;
-            corrected.forEach(slide => {
+            return slides.map( slide => {
                slide.renderedContent = slide.renderedContent.replaceAll( `src="/__media/`, `src="${this.baseUrl}/__media/` );
-            });
-            return corrected;
+			   return slide;
+            } );
         },
 
         getSlugEnd( slug ) {
