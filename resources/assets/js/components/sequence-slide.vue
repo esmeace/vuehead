@@ -1,3 +1,6 @@
+<!--
+	TODO: What is this for?
+ -->
 <template>
     <div class="sequence-slide">
         <slot>
