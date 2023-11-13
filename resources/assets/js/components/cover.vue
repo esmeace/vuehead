@@ -1,9 +1,12 @@
 <template>
     <div>
         <div class="slide-header">
-            <img :src="`/includes/static/images/header-logo-${theme}.svg`" alt="Ortus" class="corner-logo position-absolute top-0 end-0"/>
-
-            <img :src="logoPath" alt="Into the Box" class="cover-logo" @click="toggleSound()"/>
+            <img
+				:src="`/includes/static/images/ortus-logo.svg`"
+				alt="Ortus"
+				class="corner-logo position-absolute top-0 end-0"
+				@click="toggleSound()"
+			/>
         </div>
 
         <div class="cover-astro">
@@ -11,9 +14,12 @@
             <img src="/includes/static/images/astro-head-01.svg" alt="astro-head" class="cover-astro-head"/>
             <img src="/includes/static/images/astro-body.svg" alt="astro" class="cover-astro-body"/>
         </div>
+
         <slot>
             <div v-html="content" class="position-relative slide-content"></div>
         </slot>
+
+		<!-- Audio Loop -->
         <audio id="audio-intro" loop>
             <source src="/includes/static/audio/outer-space.mp3" type="audio/mpeg">
             Your browser does not support the audio element.
@@ -36,20 +42,16 @@ export default {
             default: "itb"
         }
     },
+
     data() {
         return {
             isSoundOn: false
         };
     },
 
-    computed: {
-        logoPath() {
-            return this.lang == 'en' ? `/includes/static/images/logo-${this.theme}.svg` :  "/includes/static/images/logo-itb-latam.svg";
-        }
-    },
-
     mounted() {
         this.jingle = document.getElementById( "audio-intro" );
+		this.toggleSound();
     },
 
     methods: {

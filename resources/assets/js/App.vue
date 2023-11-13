@@ -1,27 +1,27 @@
 <template>
-    <div v-if="!slides.length">
+    <div v-if = "!slides.length">
         Loading...
     </div>
 
-    <carousel :items-to-show="1" ref="preso" v-else>
+    <carousel :items-to-show = "1" ref = "preso" v-else>
         <slide
-            v-for="( slide, slideIdx ) in slides"
-            :key="slide.contentID"
-            :style="getSlideStyles( slide )"
+              v-for = "( slide, slideIdx ) in slides"
+            :key    = "slide.contentID"
+            :style  = "getSlideStyles( slide )"
         >
             <component
-                :is="getComponent( slide )"
-                :content="slide.renderedContent"
-                :class="getContentClass( slide.slug )"
-                :lang="lang"
-                :slideIdx="slideIdx"
-                :theme="theme"
+                :is       = "getComponent( slide )"
+                :content  = "slide.renderedContent"
+                :class    = "getContentClass( slide.slug )"
+                :lang     = "lang"
+                :slideIdx = "slideIdx"
+                :theme    = "theme"
             ></component>
         </slide>
 
         <template #addons>
-        <navigation />
-        <pagination />
+			<navigation />
+			<pagination />
         </template>
     </carousel>
 
@@ -29,14 +29,14 @@
 
 <script>
 import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel';
-import slidesApi from "./api/slides";
-import Cover from "./components/cover";
-import VideoSlide from "./components/video-slide";
-import DefaultSlide from "./components/default-slide";
-import SequenceSlide from "./components/sequence-slide";
+import slidesApi                                   from "./api/slides";
+import Cover                                       from "./components/cover";
+import VideoSlide                                  from "./components/video-slide";
+import DefaultSlide                                from "./components/default-slide";
+import SequenceSlide                               from "./components/sequence-slide";
 
 export default {
-    name: 'App',
+    name      : 'App',
     components: {
         Carousel,
         Slide,
@@ -50,8 +50,8 @@ export default {
     data() {
         return {
             slides: [],
-            lang: "en",
-            theme: "itb-2022"
+            lang  : "en",
+            theme : "itb-2022"
         }
     },
 
@@ -86,13 +86,13 @@ export default {
         correctMediaURL( slides ) {
             let corrected = slides;
             corrected.forEach(slide => {
-               slide.renderedContent = slide.renderedContent.replaceAll( `<img src="/__media/`, `<img src="${this.baseUrl}/__media/` );
+               slide.renderedContent = slide.renderedContent.replaceAll( `src="/__media/`, `src="${this.baseUrl}/__media/` );
             });
             return corrected;
         },
 
         getSlugEnd( slug ) {
-            let a =  slug.split( "/" );
+            let a = slug.split( "/" );
             return a[ a.length - 1 ];
         },
 
@@ -101,13 +101,13 @@ export default {
         },
 
         getSlideStyles( slide ){
-            let styles = { "backgroundColor" : "#000048" }
+            let styles  = { "backgroundColor" : "#000048" }
             let bgImage = this.getValuefromFields( slide.customFields, "bgImage" );
             if( bgImage ) {
-                styles.backgroundImage = "url(" + this.baseUrl + "/" + bgImage + ")";
-                styles.backgroundSize = "cover";
+                styles.backgroundImage    = "url(" + this.baseUrl + "/" + bgImage + ")";
+                styles.backgroundSize     = "cover";
                 styles.backgroundPosition = "center";
-                styles.backgroundRepeat = "no-repeat";
+                styles.backgroundRepeat   = "no-repeat";
             }
             return styles;
         },
@@ -129,7 +129,7 @@ export default {
         getValuefromFields( customFields, key ){
             let fieldIdx = customFields.map( field => field.key ).indexOf( key );
             if( fieldIdx > -1 ){
-                return customFields[ fieldIdx ].value !== " " ?  customFields[ fieldIdx ].value : null;
+                return customFields[ fieldIdx ].value !== " " ?  customFields[ fieldIdx ].value: null;
             } else {
                 return null
             }

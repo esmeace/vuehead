@@ -1,8 +1,7 @@
 import { createApp } from "vue";
-// import { router } from "@/route/router";
-
+// Import the root component
 import App from "./App.vue";
 
 const app = createApp( App );
+// Found in layouts/Main.cfm
 app.mount( '#app' );
-
