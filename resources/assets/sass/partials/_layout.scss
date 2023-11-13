@@ -36,7 +36,6 @@ html, body, #app {
     background-color: rgba(21, 3, 92, 0.5);
 }
 .cb-speaking {
-	width: 75vw;
     h2 {
         white-space: nowrap;
         font-size: 2.2rem;
@@ -130,6 +129,9 @@ html, body, #app {
         right: 46px;
         left: auto;
     }
+}
+.cb-speaking {
+    width: 75vw;
 }
 .cb-traditional-vs-headless {
     h2 {
