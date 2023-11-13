@@ -1,6 +1,6 @@
 <cfoutput>
 <!DOCTYPE html>
-<html lang="en" data-theme="itb-2022">
+<html lang="en" data-theme="itb-2023">
 <head>
 	<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -27,18 +27,19 @@
 </head>
 <body data-spy="scroll">
 
-	<!---Container And Views --->
-	<div id="app">
-		#renderView()#
-	</div>
+	<!--- Vue APP --->
+	<div id="app"></div>
 
-	<script type="application/javascript">
+	<!--- Global Data --->
+	<script>
 		window[ "globalData" ] = #toJson( prc.globalData )#;
 	</script>
 
+	<!--- Assets --->
 	<script src="#html.elixirPath( "js/runtime.js" )#"></script>
     <script src="#html.elixirPath( "js/vendor.js" )#"></script>
 	<script src="#html.elixirPath( "js/app.js" )#"></script>
+
 </body>
 </html>
 </cfoutput>

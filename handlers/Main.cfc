@@ -56,7 +56,7 @@ component extends="coldbox.system.EventHandler" {
 		prc.globalData[ "presentation" ]	= getSetting( "presentation" );
 		prc.globalData[ "jwt" ] 			= deserializeJSON( result.filecontent ).data.tokens.access_token;
 		prc.globalData[ "apiUrl" ] 			= getSetting( "apiUrl" );
-		prc.globalData[ "imageBaseUrl" ] 	= "";
+		prc.globalData[ "imageBaseUrl" ] 	= getSetting( "apiUrl" );
 	}
 
 	function onRequestEnd( event, rc, prc ) {
