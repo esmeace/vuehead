@@ -36,6 +36,7 @@ html, body, #app {
     background-color: rgba(21, 3, 92, 0.5);
 }
 .cb-speaking {
+	width: 75vw;
     h2 {
         white-space: nowrap;
         font-size: 2.2rem;
@@ -44,7 +45,7 @@ html, body, #app {
     }
     img {
         border: 5px white solid;
-        border-radius: 50%;
+        border-radius: 25%;
         overflow: hidden;
         box-shadow: 0 5px 15px 0px rgba(0,0,0,0.6);
         transform: translatey(0px);
@@ -81,7 +82,7 @@ html, body, #app {
     height: var( --itb-cover-content-height );
 }
 [ data-theme="itb-2023" ] {
-    .cover-logo { 
+    .cover-logo {
         max-width: 100px;
         margin: 20px 0px 40px;
     }
@@ -92,21 +93,21 @@ html, body, #app {
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        
+
         .slide-footer {
             color: var( --itb-text-primary );
 
             span {
                 font-size: 1rem;
             }
-            
+
             ul {
                 padding-left: 0;
                 list-style: none;
                 li:not(:last-child) {
                     margin-right: 0.5rem;
                 }
-                
+
                 li {
                     color: #fff;
                     display: inline-block;
@@ -130,9 +131,6 @@ html, body, #app {
         left: auto;
     }
 }
-.cb-speaking {
-    width: 75vw;
-}
 .cb-traditional-vs-headless {
     h2 {
         font-size: 1.8rem;
@@ -151,7 +149,7 @@ html, body, #app {
     img {
         max-width: 200px;
         width: 25vmin;
-        
+
     }
     img:first-child {
         max-width: 100px;
