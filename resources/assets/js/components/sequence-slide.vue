@@ -13,7 +13,7 @@ export default {
             required: true
         }
     },
-    data() { 
+    data() {
         return {};
     },
     mounted() {
@@ -41,7 +41,7 @@ export default {
             let aNodes = [...seq.childNodes]
             let firstNode = null;
             let hiddenNodes = [];
-            console.log( aNodes );
+            //console.log( aNodes );
             aNodes.forEach(
                 function ( node ) {
                     if( node.tagName && !firstNode ){

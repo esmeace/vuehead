@@ -1,11 +1,16 @@
+<!--
+ TODO:
+ - How to add the slide to the location hash?
+ - Are there keybindings for navigatin back and forth?
+ -->
 <template>
     <div v-if = "!slides.length">
         Loading...
     </div>
 
-    <carousel :items-to-show = "1" ref = "preso" v-else>
+    <carousel :items-to-show = "1" ref="preso" v-else>
         <slide
-              v-for = "( slide, slideIdx ) in slides"
+              v-for = "( slide, slideIndex ) in slides"
             :key    = "slide.contentID"
             :style  = "getSlideStyles( slide )"
         >
@@ -14,7 +19,7 @@
                 :content  = "slide.renderedContent"
                 :class    = "getContentClass( slide.slug )"
                 :lang     = "lang"
-                :slideIdx = "slideIdx"
+                :slideIndex = "slideIndex"
                 :theme    = "theme"
             ></component>
         </slide>
@@ -47,11 +52,14 @@ export default {
         DefaultSlide,
         SequenceSlide
     },
+
     data() {
         return {
             slides: [],
             lang  : "en",
-            theme : "itb-2022"
+			// TODO: What's the point of this?
+            theme : "itb-2022",
+			slideBackgroundColor : "#000048"
         }
     },
 
@@ -67,6 +75,9 @@ export default {
 
     methods: {
 
+		/**
+		 * Get the slides from the CMS
+		 */
         fetchSlides() {
             slidesApi.fetch(
 					this.slidesSlug,
@@ -85,7 +96,8 @@ export default {
 		/**
 		 * This is done so that in the CMS the content can have relative images and
 		 * the UI then re-links them back to the API
-		 * @param {*} slides
+		 *
+		 * @param {*} slides The slides to correct
 		 */
         correctMediaURL( slides ) {
             return slides.map( slide => {
@@ -94,17 +106,33 @@ export default {
             } );
         },
 
+		/**
+		 * Get the last part of the slug (the part after the last /)
+		 *
+		 * @param {string} slug The name of the slide
+		 */
         getSlugEnd( slug ) {
-            let a = slug.split( "/" );
-            return a[ a.length - 1 ];
+            let parts = slug.split( "/" );
+            return parts[ parts.length - 1 ];
         },
 
+		/**
+		 * The content class is used to style the content of the slide
+		 * It is based on the name of the slide in the CMS
+		 *
+		 * @param {string} slug The slug of the slide
+		 */
         getContentClass( slug ) {
             return "cb-" + this.getSlugEnd( slug );
         },
 
+		/**
+		 * Get the styles for the slide
+		 *
+		 * @param {object} slide The CMS slide content object
+		 */
         getSlideStyles( slide ){
-            let styles  = { "backgroundColor" : "#000048" }
+            let styles  = { "backgroundColor" : this.slideBackgroundColor }
             let bgImage = this.getValuefromFields( slide.customFields, "bgImage" );
             if( bgImage ) {
                 styles.backgroundImage    = "url(" + this.baseUrl + "/" + bgImage + ")";
@@ -115,9 +143,13 @@ export default {
             return styles;
         },
 
+		/**
+		 * Get the component to use for the slide based on the type custom field
+		 *
+		 * @param {*} slide The CMS slide content object
+		 */
         getComponent( slide ){
-            let type = this.getValuefromFields( slide.customFields, "type" );
-            switch( type ) {
+            switch( this.getValuefromFields( slide.customFields, "type" ) ) {
                 case 'cover':
                     return "Cover";
                 case 'video':
@@ -129,29 +161,36 @@ export default {
             }
         },
 
-        getValuefromFields( customFields, key ){
+		/**
+		 * Get a value from the custom field. If not found, return null
+		 *
+		 * @param {*} customFields The custom fields array
+		 * @param {*} key The key to look for
+		 * @param {*} defaultValue The default value to return if not found
+		 */
+        getValuefromFields( customFields, key, defaultValue = null ){
             let fieldIdx = customFields.map( field => field.key ).indexOf( key );
             if( fieldIdx > -1 ){
-                return customFields[ fieldIdx ].value !== " " ?  customFields[ fieldIdx ].value: null;
-            } else {
-                return null
+                return customFields[ fieldIdx ].value.trim().length > 0 ?  customFields[ fieldIdx ].value : defaultValue;
             }
+            return defaultValue;
         },
 
+		/**
+		 * Set the initial slide based on the location hash
+		 */
         setInitialSlide(){
             let self = this;
             if( window.location.hash ) {
-              console.log( 'here' );
-              let idx = this.slides
-			  	.map( slide => "#"+self.getSlugEnd( slide.slug ) )
-			  	.indexOf( window.location.hash );
-              if( idx > -1 ){
-                console.log( this.$refs.preso );
-                console.log( idx );
-                this.$nextTick( function(){
-                    this.$refs.preso.slideTo( idx );
-                } );
-              }
+            	//   console.log( 'here' );
+            	let index = this.slides
+			  		.map( slide => "#" + self.getSlugEnd( slide.slug ) )
+			  		.indexOf( window.location.hash );
+              	if( index > -1 ){
+					// console.log( this.$refs.preso );
+					// console.log( index );
+					this.$nextTick( () => this.$refs.preso.slideTo( index ) );
+              	}
             }
         }
     }

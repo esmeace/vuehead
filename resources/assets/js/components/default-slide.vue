@@ -5,46 +5,57 @@
         </slot>
     </div>
 </template>
+
 <script>
 export default {
-    inject: ['currentSlide'],
+	// TODO: What is this?
+    inject: [ 'currentSlide' ],
+
     props: {
         content: {
             type: String,
             required: true
         },
-        slideIdx: {
+        slideIndex: {
             type: Number,
             required: true
         }
     },
-    data() { 
+
+    data() {
         return {};
     },
+
     computed: {
+		// TODO: What is this for?
         isActive() {
-            console.log( this.slideIdx );
-            console.log( this.currentSlide.value );
-            return this.slideIdx == this.currentSlide.value;
+            // console.log( this.slideIndex );
+            // console.log( this.currentSlide.value );
+            return this.slideIndex == this.currentSlide.value;
         }
     },
+
     watch: {
+		// TODO: What is this for?
         isActive( newVal, oldVal ){
-            console.log( newVal );
+            //console.log( newVal );
             if( newVal ) this.initVisibility();
         }
     },
+
     mounted() {
         this.initVisibility();
     },
+
     methods: {
         initVisibility(){
-            let aNodes = [...this.$refs.content.childNodes];
+            let aNodes = [ ...this.$refs.content.childNodes ];
             let self = this;
             aNodes.forEach(
                 function ( node ) {
                     if( node.tagName && node.tagName === "H2" ){
-                        node.onclick = function() { self.showElements( aNodes) };
+						node.style.cursor = "pointer";
+                        node.onclick = () => self.showElements( aNodes );
                     } else if( node.tagName ) {
                         node.classList.add( 'invisible' );
                         node.classList.add( 'trans-opacity' );
@@ -52,12 +63,9 @@ export default {
                 }
             );
         },
+
         showElements( nodes ){
-            nodes.forEach(
-                function ( node ) {
-                    if( node.classList ) node.classList.remove( 'invisible' );
-                }
-            );
+            nodes.forEach(  node => { if( node.classList ) node.classList.remove( 'invisible' ) } );
         }
     }
 };
