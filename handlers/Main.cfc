@@ -35,9 +35,6 @@ component extends="coldbox.system.EventHandler" {
 	function onRequestStart( event, rc, prc ) {
 		param prc.globalData = {};
 
-		writeDump( var=SERVER, top = 5 );
-		abort;
-
 		cfhttp(
 			method="POST",
 			charset="utf-8",
@@ -59,7 +56,7 @@ component extends="coldbox.system.EventHandler" {
 		prc.globalData[ "presentation" ]	= getSystemSetting( "HCMS_PRESENTATION" );
 		prc.globalData[ "jwt" ] 			= deserializeJSON( result.filecontent ).data.tokens.access_token;
 		prc.globalData[ "apiUrl" ] 			= getSystemSetting( "HCMS_URL" );
-		prc.globalData[ "imageBaseUrl" ] 	= getSetting( "HCMS_URL" );
+		prc.globalData[ "imageBaseUrl" ] 	= getSystemSetting( "HCMS_URL" );
 	}
 
 	function onRequestEnd( event, rc, prc ) {
