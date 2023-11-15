@@ -8,8 +8,7 @@
 
 <script>
 export default {
-	// TODO: What is this?
-    inject: [ 'currentSlide' ],
+	inject: [ 'currentSlide' ], // From the Vue3-carousel, injects property that is the current slide index.
 
     props: {
         content: {
