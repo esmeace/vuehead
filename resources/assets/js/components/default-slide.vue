@@ -30,7 +30,7 @@ export default {
         isActive() {
             // console.log( this.slideIndex );
             // console.log( this.currentSlide.value );
-            return this.slideIndex == this.currentSlide.value;
+            return this.slideIndex == this.currentSlide;
         }
     },
 
