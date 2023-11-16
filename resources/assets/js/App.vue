@@ -139,8 +139,6 @@ export default {
                 styles.backgroundPosition = "center";
                 styles.backgroundRepeat   = "no-repeat";
             }
-			console.log( slide.slug );
-			console.log( styles );
             return styles;
         },
 
