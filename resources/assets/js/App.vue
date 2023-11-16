@@ -1,8 +1,3 @@
-<!--
- TODO:
- - How to add the slide to the location hash?
- - Are there keybindings for navigatin back and forth?
- -->
 <template>
     <div v-if = "!slides.length">
         Loading...
