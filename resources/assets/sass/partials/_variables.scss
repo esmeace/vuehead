@@ -14,6 +14,16 @@
     --itb-link-color: #ffffff;
     --itb-link-hover-color: var( --itb-bg-color-primary );
 
+    --vc-nav-background: var(--itb-bg-color-primary);
+    --vc-nav-border-radius: 50%;
+    --vc-nav-width: 1.2rem;
+    --vc-nav-height: 1.2rem;
+    --vc-nav-color: #ffffff ;
+
+    --cb-speaking-img-animation: float;
+    --cb-speaking-img-border: 5px white solid;
+    --cb-speaking-img-border-radius: 50%;
+    --cb-speaking-img-shadow: 0 5px 15px 0px rgba(0,0,0,0.6);
 }
 [ data-theme="itb-2023" ] {
     --itb-title-font: 'Open Sans', Arial, Helvetica, sans-serif;
@@ -32,6 +42,9 @@
     --itb-link-color: #FFBA00;
     --itb-link-hover-color: var( --itb-bg-color-primary );
 
+    --cb-speaking-img-animation: float;
+    --cb-speaking-img-border: 5px white solid;
+    --cb-speaking-img-border-radius: 50%;
+    --cb-speaking-img-shadow: 0 5px 15px 0px rgba(0,0,0,0.6);
 }
-
 $base-font-size : 2vw;

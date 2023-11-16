@@ -8,8 +8,7 @@
 
 <script>
 export default {
-	// TODO: What is this?
-    inject: [ 'currentSlide' ],
+	inject: [ 'currentSlide' ], // From the Vue3-carousel, injects property that is the current slide index.
 
     props: {
         content: {
@@ -29,16 +28,13 @@ export default {
     computed: {
 		// TODO: What is this for?
         isActive() {
-            // console.log( this.slideIndex );
-            // console.log( this.currentSlide.value );
-            return this.slideIndex == this.currentSlide.value;
+            return this.slideIndex == this.currentSlide;
         }
     },
 
     watch: {
 		// TODO: What is this for?
         isActive( newVal, oldVal ){
-            //console.log( newVal );
             if( newVal ) this.initVisibility();
         }
     },

@@ -1,44 +1,50 @@
-<!--
- TODO:
- - How to add the slide to the location hash?
- - Are there keybindings for navigatin back and forth?
- -->
 <template>
     <div v-if = "!slides.length">
         Loading...
     </div>
 
-    <carousel :items-to-show = "1" ref="preso" v-else>
-        <slide
-              v-for = "( slide, slideIndex ) in slides"
-            :key    = "slide.contentID"
-            :style  = "getSlideStyles( slide )"
-        >
-            <component
-                :is       = "getComponent( slide )"
-                :content  = "slide.renderedContent"
-                :class    = "getContentClass( slide.slug )"
-                :lang     = "lang"
-                :slideIndex = "slideIndex"
-                :theme    = "theme"
-            ></component>
-        </slide>
-
-        <template #addons>
-			<navigation />
-			<pagination />
+    <carousel 
+        v-else :items-to-show = "1" 
+        ref="preso"
+        @slide-start="onSlideStart"
+    >
+        <template #slides>
+            <slide
+                v-for = "( slide, slideIndex ) in slides"
+                :key    = "slide.contentID"
+                :style  = "getSlideStyles( slide )"
+            >
+                <component
+                    :is       = "getComponent( slide )"
+                    :content  = "slide.renderedContent"
+                    :class    = "getContentClass( slide.slug )"
+                    :lang     = "lang"
+                    :slideIndex = "slideIndex"
+                    :theme    = "theme"
+                ></component>
+            </slide>
+        </template>
+        <template #addons="{ slidesCount }">
+            <default-navigation 
+                v-if="slidesCount > 1" 
+                @next="onNext"
+                @prev="onPrev"
+            />
+			<pagination v-if="slidesCount > 1" />
         </template>
     </carousel>
 
 </template>
 
 <script>
-import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel';
-import slidesApi                                   from "./api/slides";
-import Cover                                       from "./components/cover";
-import VideoSlide                                  from "./components/video-slide";
-import DefaultSlide                                from "./components/default-slide";
-import SequenceSlide                               from "./components/sequence-slide";
+import { Carousel, Slide, Pagination }  from 'vue3-carousel';
+import slidesApi                        from "./api/slides";
+import { settings }                     from "./settings/presentation.js";
+import DefaultNavigation                from "./components/default-nav";
+import Cover                            from "./components/cover";
+import VideoSlide                       from "./components/video-slide";
+import DefaultSlide                     from "./components/default-slide";
+import SequenceSlide                    from "./components/sequence-slide";
 
 export default {
     name      : 'App',
@@ -46,7 +52,7 @@ export default {
         Carousel,
         Slide,
         Pagination,
-        Navigation,
+        DefaultNavigation,
         Cover,
         VideoSlide,
         DefaultSlide,
@@ -57,23 +63,26 @@ export default {
         return {
             slides: [],
             lang  : "en",
-            theme : "itb-2022",
-			slideBackgroundColor : "#000048"
+            slideBackgroundColor : "#000048"
         }
     },
 
     computed: {
         globalData() { return window.globalData; },
         baseUrl() { return this.globalData.imageBaseUrl; },
-        slidesSlug() { return this.lang === 'en' ? this.globalData.presentation : this.globalData.presentation + '-sp' }
+        slidesSlug() { return this.lang === 'en' ? this.globalData.presentation : this.globalData.presentation + '-sp' },
+        theme() {
+            return settings[ this.globalData.presentation ] ? settings[ this.globalData.presentation ].theme : "default";
+        }
     },
-
+    created() {
+        // sets the theme (data-theme on root)
+        document.documentElement.dataset.theme = this.theme;
+    },
     mounted() {
         this.fetchSlides();
     },
-
     methods: {
-
 		/**
 		 * Get the slides from the CMS
 		 */
@@ -139,9 +148,7 @@ export default {
                 styles.backgroundPosition = "center";
                 styles.backgroundRepeat   = "no-repeat";
             }
-			console.log( slide.slug );
-			console.log( styles );
-            return styles;
+			return styles;
         },
 
 		/**
@@ -176,20 +183,35 @@ export default {
             }
             return defaultValue;
         },
-
+        /**
+		 * Moves to next slide
+		 */
+        onNext() {
+            this.$refs.preso.next();
+        },
+        /**
+		 * Moves to previous slide
+		 */
+        onPrev() {
+            this.$refs.preso.prev();
+        },
+        /**
+		 * Handles on slide start
+		 */
+        onSlideStart( data ) {
+            // sets the url hash
+            window.location.hash = `#${this.getSlugEnd( this.slides[ data.slidingToIndex ].slug )}`;
+        },
 		/**
 		 * Set the initial slide based on the location hash
 		 */
         setInitialSlide(){
             let self = this;
             if( window.location.hash ) {
-            	//   console.log( 'here' );
             	let index = this.slides
 			  		.map( slide => "#" + self.getSlugEnd( slide.slug ) )
 			  		.indexOf( window.location.hash );
               	if( index > -1 ){
-					// console.log( this.$refs.preso );
-					// console.log( index );
 					this.$nextTick( () => this.$refs.preso.slideTo( index ) );
               	}
             }
