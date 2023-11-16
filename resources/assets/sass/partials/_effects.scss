@@ -12,6 +12,17 @@
 		transform: translatey(0px);
 	}
 }
+@keyframes float-noshadow {
+	0% {
+		transform: translatey(0px);
+	}
+	50% {
+		transform: translatey(-20px);
+	}
+	100% {
+		transform: translatey(0px);
+	}
+}
 @keyframes headoff {
 	0% {
 		transform: translate( 0 );
