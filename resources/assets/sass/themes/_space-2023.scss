@@ -1,0 +1,27 @@
+[ data-theme="space-2023" ] {
+    --itb-title-font: 'Orbitron', Arial, Helvetica, sans-serif;
+    --itb-title-padding-bottom: auto;
+    --itb-cover-content-position: relative;
+    --itb-cover-content-padding: auto;
+    --itb-cover-content-height: auto;
+    --itb-cover-content-width: auto;
+    --itb-cover-text-align: center;
+
+    --itb-bg-color-primary: #CEFF00;
+    --itb-on-primary: #000000;
+    --itb-text-primary: #CEFF00;
+
+    --itb-link-color: #ffffff;
+    --itb-link-hover-color: var( --itb-bg-color-primary );
+
+    --vc-nav-background: var(--itb-bg-color-primary);
+    --vc-nav-border-radius: 50%;
+    --vc-nav-width: 1.2rem;
+    --vc-nav-height: 1.2rem;
+    --vc-nav-color: #ffffff ;
+
+    --cb-speaking-img-animation: float-noshadow;
+    --cb-speaking-img-border: none;
+    --cb-speaking-img-border-radius: 0px;
+    --cb-speaking-img-shadow: none;
+}
