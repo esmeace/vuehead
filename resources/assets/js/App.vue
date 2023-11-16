@@ -176,7 +176,18 @@ export default {
             }
             return defaultValue;
         },
-
+        /**
+		 * Moves to next slide
+		 */
+        onNext() {
+            this.$refs.preso.next();
+        },
+        /**
+		 * Moves to previous slide
+		 */
+        onPrev() {
+            this.$refs.preso.prev();
+        },
 		/**
 		 * Set the initial slide based on the location hash
 		 */
