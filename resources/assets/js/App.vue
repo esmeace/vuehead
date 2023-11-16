@@ -143,9 +143,7 @@ export default {
                 styles.backgroundPosition = "center";
                 styles.backgroundRepeat   = "no-repeat";
             }
-			console.log( slide.slug );
-			console.log( styles );
-            return styles;
+			return styles;
         },
 
 		/**
@@ -205,13 +203,10 @@ export default {
         setInitialSlide(){
             let self = this;
             if( window.location.hash ) {
-            	//   console.log( 'here' );
             	let index = this.slides
 			  		.map( slide => "#" + self.getSlugEnd( slide.slug ) )
 			  		.indexOf( window.location.hash );
               	if( index > -1 ){
-					// console.log( this.$refs.preso );
-					// console.log( index );
 					this.$nextTick( () => this.$refs.preso.slideTo( index ) );
               	}
             }
