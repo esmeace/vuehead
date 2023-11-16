@@ -1,17 +1,5 @@
 html, body, #app {
     height: 100%;
-    font-size: 1.4rem;
-}
-img {
-	margin: 20px;
-	border-radius: 10%;
-	overflow: hidden;
-	box-shadow: 0 5px 15px 0px rgba(0,0,0,0.6);
-	transform: translatey(0px);
-}
-.col {
-	display: flex;
-	align-items: center;
 }
 .corner-logo {
     height: 50px;
@@ -32,7 +20,8 @@ img {
 
     video {
         width: 100%;
-        height: auto;
+        height: 100%;
+        object-fit: cover;
     }
 }
 .overlay {
@@ -45,22 +34,6 @@ img {
 }
 .overlay-50 {
     background-color: rgba(21, 3, 92, 0.5);
-}
-.cb-speaking {
-    h2 {
-        white-space: nowrap;
-        font-size: 2.2rem;
-        font-family: Arial, Helvetica, sans-serif;
-
-    }
-    img {
-        border: 5px white solid;
-        border-radius: 25%;
-        overflow: hidden;
-        box-shadow: 0 5px 15px 0px rgba(0,0,0,0.6);
-        transform: translatey(0px);
-        animation: float 6s ease-in-out infinite;
-    }
 }
 .cover-astro-body {
     height: 240px;
