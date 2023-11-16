@@ -1,7 +1,7 @@
 export const settings = 
     {
         "headlesscb-slides" : {
-            "theme": "itb-2022"
+            "theme": "space-2023"
         },
         "headlesscb-100-mins-slides" : {
             "theme": "itb-2023"
