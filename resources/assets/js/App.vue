@@ -3,24 +3,27 @@
         Loading...
     </div>
 
-    <carousel :items-to-show = "1" ref="preso" v-else>
-        <slide
-            v-for = "( slide, slideIndex ) in slides"
-            :key    = "slide.contentID"
-            :style  = "getSlideStyles( slide )"
-        >
-            <component
-                :is       = "getComponent( slide )"
-                :content  = "slide.renderedContent"
-                :class    = "getContentClass( slide.slug )"
-                :lang     = "lang"
-                :slideIndex = "slideIndex"
-                :theme    = "theme"
-            ></component>
-        </slide>
-
-        <template #addons>
-			<pagination />
+    <carousel 
+        v-else :items-to-show = "1" 
+        ref="preso"
+        @slide-start="onSlideStart"
+    >
+        <template #slides>
+            <slide
+                v-for = "( slide, slideIndex ) in slides"
+                :key    = "slide.contentID"
+                :style  = "getSlideStyles( slide )"
+            >
+                <component
+                    :is       = "getComponent( slide )"
+                    :content  = "slide.renderedContent"
+                    :class    = "getContentClass( slide.slug )"
+                    :lang     = "lang"
+                    :slideIndex = "slideIndex"
+                    :theme    = "theme"
+                ></component>
+            </slide>
+        </template>
         <template #addons="{ slidesCount }">
             <default-navigation 
                 v-if="slidesCount > 1" 
