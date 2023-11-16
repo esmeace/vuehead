@@ -33,12 +33,13 @@
 </template>
 
 <script>
-import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel';
 import slidesApi                                   from "./api/slides";
 import Cover                                       from "./components/cover";
 import VideoSlide                                  from "./components/video-slide";
 import DefaultSlide                                from "./components/default-slide";
 import SequenceSlide                               from "./components/sequence-slide";
+import { Carousel, Slide, Pagination }  from 'vue3-carousel';
+import DefaultNavigation                from "./components/default-nav";
 
 export default {
     name      : 'App',
@@ -46,7 +47,7 @@ export default {
         Carousel,
         Slide,
         Pagination,
-        Navigation,
+        DefaultNavigation,
         Cover,
         VideoSlide,
         DefaultSlide,
@@ -73,7 +74,6 @@ export default {
     },
 
     methods: {
-
 		/**
 		 * Get the slides from the CMS
 		 */
