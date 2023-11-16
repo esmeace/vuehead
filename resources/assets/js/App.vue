@@ -188,6 +188,13 @@ export default {
         onPrev() {
             this.$refs.preso.prev();
         },
+        /**
+		 * Handles on slide start
+		 */
+        onSlideStart( data ) {
+            // sets the url hash
+            window.location.hash = `#${this.getSlugEnd( this.slides[ data.slidingToIndex ].slug )}`;
+        },
 		/**
 		 * Set the initial slide based on the location hash
 		 */
