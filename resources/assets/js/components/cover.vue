@@ -39,7 +39,7 @@ export default {
         },
         theme: {
             type: String,
-            default: "itb"
+            default: "default"
         }
     },
 
