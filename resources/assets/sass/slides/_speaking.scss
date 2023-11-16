@@ -1,0 +1,63 @@
+.cb-speaking {
+    h2 {
+        white-space: nowrap;
+        font-size: 4vw;
+        font-family: Arial, Helvetica, sans-serif;
+        text-align: left;
+
+    }
+    .row:first-child {
+        position: relative;
+        z-index: 1;
+    }
+    .row {
+        align-items: center;
+    }
+    .col {
+        position: relative;
+
+        > img {
+            border: var(--cb-speaking-img-border);
+            border-radius: var(--cb-speaking-img-border-radius);
+            overflow: hidden;
+            box-shadow: var(--cb-speaking-img-shadow);
+            transform: translatey(0px);
+            animation: var(--cb-speaking-img-animation) 6s ease-in-out infinite;
+            max-width: 90%;
+        }
+    }
+    .qrcode {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 1;
+        background: white;
+        padding: 25px;
+        border-radius: 50%;
+        width: 20vmin;
+        height: 20vmin;
+        border: 4px solid var( --itb-bg-color-primary);
+        min-width: 160px;
+        min-height: 160px;
+
+        img {
+            max-width: 100%;
+            min-width: 100px;
+            min-height: 100px;
+        }
+    }
+    @media (max-width: 1023px) {
+        .row {
+            flex-direction: column;
+        }
+        .col {
+            text-align: center;
+            > img {
+                max-width: 250px;
+            }
+        }
+        .qrcode {
+            position: relative;
+        }
+    }
+}
