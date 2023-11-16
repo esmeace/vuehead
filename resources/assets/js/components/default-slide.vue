@@ -28,7 +28,6 @@ export default {
     computed: {
 		// TODO: What is this for?
         isActive() {
-            // console.log( this.slideIndex );
             return this.slideIndex == this.currentSlide;
         }
     },
@@ -36,7 +35,6 @@ export default {
     watch: {
 		// TODO: What is this for?
         isActive( newVal, oldVal ){
-            //console.log( newVal );
             if( newVal ) this.initVisibility();
         }
     },
