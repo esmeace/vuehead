@@ -1,11 +1,11 @@
 <template>
-    <div>
+    <div >
         <div class="slide-header">
             <img
 				:src="`/includes/static/images/ortus-logo.svg`"
 				alt="Ortus"
 				class="corner-logo position-absolute top-0 end-0"
-				@click="toggleSound()"
+				style="cursor:pointer"
 			/>
         </div>
 
@@ -16,7 +16,11 @@
         </div>
 
         <slot>
-            <div v-html="content" class="position-relative slide-content"></div>
+            <div
+				v-html="content"
+				@click="toggleSound()"
+				class="position-relative slide-content"
+			></div>
         </slot>
 
 		<!-- Audio Loop -->
