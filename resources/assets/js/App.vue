@@ -26,11 +26,13 @@
 
         <template #addons>
 			<pagination />
+        <template #addons="{ slidesCount }">
             <default-navigation 
                 v-if="slidesCount > 1" 
                 @next="onNext"
                 @prev="onPrev"
             />
+			<pagination v-if="slidesCount > 1" />
         </template>
     </carousel>
 
