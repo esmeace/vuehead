@@ -2,16 +2,21 @@ html, body, #app {
     height: 100%;
 }
 // titles
-.js-title-stage-intro {
-    cursor: pointer;
+.js-stage-title {
     font-size: 6vmin;
     left: 0px;
     position: absolute;
     top: 45vh;
     text-align: center;
-    width: 100%;
+    width: 100%;   
 }
-.js-title-top-stage{
+.js-stage-title-center {
+    cursor: pointer;
+    &:hover, &:focus {
+        color: var(--itb-bg-color-primary);
+    }
+}
+.js-stage-title-top{
     transform: translateY(-40vh) scale(0.7);
     transition: all .7s ease-in-out;
 }

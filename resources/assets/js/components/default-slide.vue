@@ -57,9 +57,13 @@ export default {
             aNodes.forEach(
                 function ( node ) {
                     if( node.tagName && node.tagName === "H2" ){
-                        node.classList.add( "js-title-stage-intro" );
+                        node.classList.add( "js-stage-title" );
+                        node.classList.add( "js-stage-title-center" );
+                        node.tabIndex = 0;
 						node.onclick = () => {
-                            node.classList.add( "js-title-top-stage" );
+                            node.classList.remove( "js-stage-title-center" );
+                            node.classList.add( "js-stage-title-top" );
+                            node.removeAttribute( "tabIndex" );
                             self.showElements( aNodes )
                         };
                     } else if( node.tagName ) {
@@ -84,7 +88,7 @@ export default {
             aNodes.forEach(
                 function ( node ) {
                     if( node.tagName && node.tagName === "H2" ){
-                        node.classList.remove(  "js-title-top-stage" );
+                        node.classList.remove(  "js-stage-title-top" );
                     } 
                 }
             );
