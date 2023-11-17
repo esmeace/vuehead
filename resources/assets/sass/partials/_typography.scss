@@ -19,6 +19,10 @@ h2 {
         display: block;
     }
 }
+.js-stage-title {
+    font-size: 6vmin;
+    text-align: center;
+}
 ul {
     text-align: left;
 }
@@ -31,7 +35,7 @@ a {
     }
 }
 .title-label {
-    background-color: var(  --itb-bg-color-primary );
+    background-color: var( --itb-bg-color-primary );
     border-radius: 30px;
     color: var( --itb-on-primary );
     display: table;

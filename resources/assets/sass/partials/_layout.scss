@@ -3,11 +3,9 @@ html, body, #app {
 }
 // titles
 .js-stage-title {
-    font-size: 6vmin;
     left: 0px;
     position: absolute;
     top: 45vh;
-    text-align: center;
     width: 100%;   
 }
 .js-stage-title-center {
@@ -194,7 +192,6 @@ html, body, #app {
         max-height: 200px;
     }
 }
-
 .cb-forms-of-communication{
 	img {
 		max-width: 100%;
