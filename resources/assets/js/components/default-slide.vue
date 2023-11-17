@@ -8,6 +8,7 @@
 
 <script>
 export default {
+    name: "DefaultSlide",
 	inject: [ 'currentSlide' ], // From the Vue3-carousel, injects property that is the current slide index.
 
     props: {
@@ -26,15 +27,15 @@ export default {
     },
 
     computed: {
-		// TODO: What is this for?
+		// flags if the slide is active
         isActive() {
             return this.slideIndex == this.currentSlide;
         }
     },
 
     watch: {
-		// TODO: What is this for?
-        isActive( newVal, oldVal ){
+		isActive( newVal, oldVal ){
+            // initiates the visibility of the elements when the slide becomes active
             if( newVal ) this.initVisibility();
         }
     },
@@ -44,6 +45,9 @@ export default {
     },
 
     methods: {
+        /**
+		 * Initiates the visibility of the element in the content
+		 */
         initVisibility(){
             let aNodes = [ ...this.$refs.content.childNodes ];
             let self = this;
@@ -59,7 +63,9 @@ export default {
                 }
             );
         },
-
+        /**
+		 * Shows the hidden elements
+		 */
         showElements( nodes ){
             nodes.forEach(  node => { if( node.classList ) node.classList.remove( 'invisible' ) } );
         }
