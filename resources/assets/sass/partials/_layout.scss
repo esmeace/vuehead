@@ -1,6 +1,21 @@
 html, body, #app {
     height: 100%;
 }
+// titles
+.js-title-stage-intro {
+    cursor: pointer;
+    font-size: 6vmin;
+    left: 0px;
+    position: absolute;
+    top: 45vh;
+    text-align: center;
+    width: 100%;
+}
+.js-title-top-stage{
+    transform: translateY(-40vh) scale(0.7);
+    transition: all .7s ease-in-out;
+}
+
 .corner-logo {
     height: 50px;
     margin: 1rem;

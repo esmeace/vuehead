@@ -37,6 +37,9 @@ export default {
 		isActive( newVal, oldVal ){
             // initiates the visibility of the elements when the slide becomes active
             if( newVal ) this.initVisibility();
+            if( !newVal && oldVal ) {
+                this.reset();
+            }
         }
     },
 
@@ -54,8 +57,11 @@ export default {
             aNodes.forEach(
                 function ( node ) {
                     if( node.tagName && node.tagName === "H2" ){
-						node.style.cursor = "pointer";
-                        node.onclick = () => self.showElements( aNodes );
+                        node.classList.add( "js-title-stage-intro" );
+						node.onclick = () => {
+                            node.classList.add( "js-title-top-stage" );
+                            self.showElements( aNodes )
+                        };
                     } else if( node.tagName ) {
                         node.classList.add( 'invisible' );
                         node.classList.add( 'trans-opacity' );
@@ -68,6 +74,20 @@ export default {
 		 */
         showElements( nodes ){
             nodes.forEach(  node => { if( node.classList ) node.classList.remove( 'invisible' ) } );
+        },
+        /**
+		 * Resets the H2 position
+		 */
+        reset() {
+            let aNodes = [ ...this.$refs.content.childNodes ];
+            let self = this;
+            aNodes.forEach(
+                function ( node ) {
+                    if( node.tagName && node.tagName === "H2" ){
+                        node.classList.remove(  "js-title-top-stage" );
+                    } 
+                }
+            );
         }
     }
 };
