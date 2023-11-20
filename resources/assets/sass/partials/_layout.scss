@@ -4,6 +4,13 @@ html, body, #app {
 .video-slide, .default-slide {
     width: 80vw;
 }
+.default-slide {
+    .row .col {
+        img {
+            max-width: 100%;
+        }
+    }
+}
 // titles
 .js-stage-title {
     left: 0px;
@@ -179,7 +186,6 @@ html, body, #app {
 .cb-content-store, .cb-headless-cms {
     img {
         border-radius: 1rem;
-        max-width: 90%;
     }
     .col {
         display: flex;
