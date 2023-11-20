@@ -1,0 +1,24 @@
+/* Animation keyframes for the sprite */
+.cb-improved-security {
+    @keyframes ninjaflip {
+        100% { transform: translateX(-1280px); }
+      }
+      .animation {
+        position: absolute;
+        bottom: 0px;
+      }
+      .ninja {
+          width: 143px;   /* Viewport-width */
+          height: 249px;   /* Viewport-height */
+          margin: 2em auto;   /* Little margin */
+          overflow: hidden;
+          position: relative;
+      }
+      .ninja img {
+        position: absolute;
+        left: 0;
+        top:0;
+        animation: ninjaflip 1.5s steps(9) 1; /* The Animation */
+        width: 1280px;
+      }
+    }

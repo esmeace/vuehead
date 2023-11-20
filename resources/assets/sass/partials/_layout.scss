@@ -1,6 +1,34 @@
 html, body, #app {
     height: 100%;
 }
+.video-slide, .default-slide {
+    width: 80vw;
+}
+.default-slide {
+    .row .col {
+        img {
+            max-width: 100%;
+        }
+    }
+}
+// titles
+.js-stage-title {
+    left: 0px;
+    position: absolute;
+    top: 45vh;
+    width: 100%;   
+}
+.js-stage-title-center {
+    cursor: pointer;
+    &:hover, &:focus {
+        color: var(--itb-bg-color-primary);
+    }
+}
+.js-stage-title-top{
+    transform: translateY(-40vh) scale(0.7);
+    transition: all .7s ease-in-out;
+}
+
 .corner-logo {
     height: 50px;
     margin: 1rem;
@@ -114,9 +142,6 @@ html, body, #app {
         left: auto;
     }
 }
-.cb-speaking {
-    width: 75vw;
-}
 .cb-traditional-vs-headless {
     h2 {
         font-size: 1.8rem;
@@ -158,11 +183,9 @@ html, body, #app {
         bottom: 0px;
     }
 }
-.cb-contentstore, .cb-headless-cms {
-    width: 90%;
+.cb-content-store, .cb-headless-cms {
     img {
         border-radius: 1rem;
-        max-width: 90%;
     }
     .col {
         display: flex;
@@ -174,7 +197,6 @@ html, body, #app {
         max-height: 200px;
     }
 }
-
 .cb-forms-of-communication{
 	img {
 		max-width: 100%;
