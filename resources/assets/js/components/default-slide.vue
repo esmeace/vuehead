@@ -66,7 +66,11 @@ export default {
                             node.removeAttribute( "tabIndex" );
                             self.showElements( aNodes )
                         };
-                    } else if( node.tagName ) {
+                    } else if ( node.classList && node.classList.contains("animation")) {
+                        // TODO: Implement better way to add animations
+                        node.style.display = "none";
+                    }
+                    else if( node.tagName ) {
                         node.classList.add( 'invisible' );
                         node.classList.add( 'trans-opacity' );
                     }
@@ -77,7 +81,12 @@ export default {
 		 * Shows the hidden elements
 		 */
         showElements( nodes ){
-            nodes.forEach(  node => { if( node.classList ) node.classList.remove( 'invisible' ) } );
+            nodes.forEach(  node => { 
+                if( node.classList ) node.classList.remove( 'invisible' );
+                if ( node.classList && node.classList.contains("animation")) {
+                    node.style.display = "block";
+                }
+            } );
         },
         /**
 		 * Resets the H2 position
