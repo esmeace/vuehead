@@ -1,6 +1,9 @@
 html, body, #app {
     height: 100%;
 }
+.video-slide, .default-slide {
+    width: 80vw;
+}
 // titles
 .js-stage-title {
     left: 0px;
@@ -132,9 +135,6 @@ html, body, #app {
         left: auto;
     }
 }
-.cb-speaking {
-    width: 75vw;
-}
 .cb-traditional-vs-headless {
     h2 {
         font-size: 1.8rem;
@@ -176,8 +176,7 @@ html, body, #app {
         bottom: 0px;
     }
 }
-.cb-contentstore, .cb-headless-cms {
-    width: 90%;
+.cb-content-store, .cb-headless-cms {
     img {
         border-radius: 1rem;
         max-width: 90%;
