@@ -16,7 +16,7 @@ html, body, #app {
     left: 0px;
     position: absolute;
     top: 45vh;
-    width: 100%;   
+    width: 100%;
 }
 .js-stage-title-center {
     cursor: pointer;
@@ -160,7 +160,7 @@ html, body, #app {
     img {
         max-width: 200px;
         width: 25vmin;
-
+		cursor: pointer;
     }
     img:first-child {
         max-width: 100px;
