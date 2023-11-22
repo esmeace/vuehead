@@ -23,6 +23,7 @@
                     :lang     = "lang"
                     :slideIndex = "slideIndex"
                     :theme    = "theme"
+                    :is-preview = "isPrintView"
                 ></component>
             </slide>
         </template>
