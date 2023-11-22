@@ -3,8 +3,10 @@
         Loading...
     </div>
 
-    <carousel
-        v-else :items-to-show = "1"
+    <carousel 
+        v-else 
+        id="preso"
+        :items-to-show = "1" 
         ref="preso"
         @slide-start="onSlideStart"
     >
@@ -19,32 +21,34 @@
                     :content  = "slide.renderedContent"
                     :class    = "getContentClass( slide.slug )"
                     :lang     = "lang"
+                    :options  = "getSlideOptions( slide )"
                     :slideIndex = "slideIndex"
                     :theme    = "theme"
+                    :is-preview = "isPrintView"
                 ></component>
             </slide>
         </template>
-        <template #addons="{ slidesCount }">
-            <default-navigation
-                v-if="slidesCount > 1"
+        <template #addons="{ slidesCount }" v-if="!isPrintView">
+            <default-navigation 
+                v-if="slidesCount > 1" 
                 @next="onNext"
                 @prev="onPrev"
             />
 			<pagination v-if="slidesCount > 1" />
+            <button type="button" class="btn btn-primary" @click="print">Print</button>
         </template>
-    </carousel>
-
+    </carousel>           
 </template>
 
 <script>
 import { Carousel, Slide, Pagination }  from 'vue3-carousel';
 import slidesApi                        from "./api/slides";
-import { settings }                     from "./settings/presentation.js";
-import DefaultNavigation                from "./components/default-nav";
-import Cover                            from "./components/cover";
-import VideoSlide                       from "./components/video-slide";
-import DefaultSlide                     from "./components/default-slide";
-import SequenceSlide                    from "./components/sequence-slide";
+import { settings }                     from "@/settings/presentation.js";
+import DefaultNavigation                from "@/components/default-nav";
+import Cover                            from "@/components/cover";
+import VideoSlide                       from "@/components/video-slide";
+import DefaultSlide                     from "@/components/default-slide";
+import SequenceSlide                    from "@/components/sequence-slide";
 
 export default {
     name      : 'App',
@@ -58,7 +62,12 @@ export default {
         DefaultSlide,
         SequenceSlide
     },
-
+    props : {
+        isPrintView: {
+            type: Boolean,
+            default: false
+        }
+    },
     data() {
         return {
             slides: [],
@@ -134,6 +143,20 @@ export default {
             return "cb-" + this.getSlugEnd( slug );
         },
 
+        /**
+		 * Get the options for the slide
+		 *
+		 * @param {object} slide The CMS slide content object
+		 */
+         getSlideOptions( slide ){
+            let options  = {}
+            let bgVideo = this.getValuefromFields( slide.customFields, "bgVideo" );
+            if( bgVideo ) {
+                options.bgVideo  = `${this.baseUrl}${bgVideo}`;
+            }
+			return options;
+        },
+
 		/**
 		 * Get the styles for the slide
 		 *
@@ -201,6 +224,15 @@ export default {
         onSlideStart( data ) {
             // sets the url hash
             window.location.hash = `#${this.getSlugEnd( this.slides[ data.slidingToIndex ].slug )}`;
+        },
+
+        print() {
+            var oWindow = window.open( "/main/print" );
+            window.setTimeout( function(){
+                    oWindow.focus();
+                    oWindow.print();
+                    oWindow.close();
+                }, 1500 );
         },
 		/**
 		 * Set the initial slide based on the location hash

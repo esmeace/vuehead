@@ -18,6 +18,7 @@
  */
 export default {
   name: "DefaultNav",
+  emits: [ "next", "prev" ],
   mounted() {
     document.addEventListener( "keydown", this.keydownHandler );
   },

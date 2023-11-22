@@ -14,6 +14,10 @@ export default {
         content: {
             type    : String,
             required: true
+        },
+        isPreview: {
+            type: Boolean,
+            default: false
         }
     },
 
@@ -22,23 +26,12 @@ export default {
     },
 
     mounted() {
-        let seqs = [ ...this.$refs.content.getElementsByClassName( "sequence" ) ];
-        for( var i in seqs ){
-            this.initSequence( seqs[ i ] );
+        if ( !this.isPreview ) {
+            let seqs = [ ...this.$refs.content.getElementsByClassName( "sequence" ) ];
+            for( var i in seqs ){
+                this.initSequence( seqs[ i ] );
+            }
         }
-        // let aNodes = [...this.$refs.content.childNodes];
-        // console.log( aNodes);
-        // let self = this;
-        // aNodes.forEach(
-        //     function ( node ) {
-        //         if( node.tagName && node.tagName === "H2" ){
-        //             node.onclick = function() { self.showElements( aNodes) };
-        //         } else if( node.tagName ) {
-        //             node.classList.add( 'invisible' );
-        //         }
-        //         console.log(`${node.tagName}`);
-        //     }
-        // )
     },
 
     methods: {

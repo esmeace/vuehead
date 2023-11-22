@@ -59,4 +59,17 @@
             position: relative;
         }
     }
+    @media print {
+        .row {
+            flex-direction: row;
+        }
+        .col {
+            > img {
+                max-width: 250px;
+            }
+        }
+        .qrcode {
+            position: absolute;
+        }
+    }
 }

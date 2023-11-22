@@ -7,6 +7,12 @@ component extends="coldbox.system.EventHandler" {
 		prc.welcomeMessage = "Welcome to ColdBox!";
 		event.setView( "main/index" );
 	}
+	/**
+	 * Default Action
+	 */
+	function print( event, rc, prc ) {
+		event.setView( view="main/index", layout="print" );
+	}
 
 	/**
 	 * Produce some restfulf data

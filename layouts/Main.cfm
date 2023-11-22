@@ -28,7 +28,9 @@
 <body data-spy="scroll">
 
 	<!--- Vue APP --->
-	<div id="app"></div>
+	<div id="app">
+		<router-view></router-view>
+	</div>
 
 	<!--- Global Data --->
 	<script>

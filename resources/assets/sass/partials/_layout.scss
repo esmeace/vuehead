@@ -45,6 +45,7 @@ html, body, #app {
     top:0px;
     right:0%;
     bottom: 0px;
+    z-index: -1;
 
     video {
         width: 100%;
@@ -59,6 +60,7 @@ html, body, #app {
     left: 0px;
     bottom: 0px;
     right: 0px;
+    z-index: -1;
 }
 .overlay-50 {
     background-color: rgba(21, 3, 92, 0.5);
@@ -85,6 +87,16 @@ html, body, #app {
     transform-origin: center;
     transform: translateY( -850px );
     animation: headon 1s 6s forwards ease-in-out
+}
+.print-page {
+    .cover-astro-head-02 {
+        transform: none;
+        animation: none;
+    }
+    .cover-astro-head {
+        display: none;
+        animation: none;
+    }   
 }
 .cb-cover {
     padding: var( --itb-cover-content-padding );
@@ -211,6 +223,13 @@ html, body, #app {
     opacity: 0;
 }
 @media print {
+    .default-slide, .video-slide {
+        width: 80%;
+
+        .slide-content {
+            width: 100%;
+        }
+    }
     .cover-astro-body {
         height: 190px;
     }

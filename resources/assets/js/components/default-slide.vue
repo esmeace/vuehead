@@ -1,7 +1,22 @@
 <template>
     <div class="default-slide">
+        <template v-if="options.bgVideo && !isPreview">
+            <div class="video-bg">
+                <video autoplay muted loop id="soyvid">
+                    <source :src="options.bgVideo"
+                            type="video/mp4">
+
+                    Sorry, your browser doesn't support embedded videos.
+                </video>
+            </div>
+            <div class="overlay"></div>
+        </template>
         <slot>
-            <div v-html="content" ref="content" class="slide-content"></div>
+            <div 
+                v-html="content" 
+                ref="content" 
+                class="slide-content"
+            ></div>
         </slot>
     </div>
 </template>
@@ -15,6 +30,16 @@ export default {
         content: {
             type: String,
             required: true
+        },
+        isPreview: {
+            type: Boolean,
+            default: false
+        },
+        options: {
+            type: Object,
+            default: function() {
+                return {};
+            }
         },
         slideIndex: {
             type: Number,
@@ -44,7 +69,7 @@ export default {
     },
 
     mounted() {
-        this.initVisibility();
+        if ( !this.isPreview ) this.initVisibility();
     },
 
     methods: {

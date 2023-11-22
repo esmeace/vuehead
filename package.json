@@ -1,8 +1,7 @@
 {
     "private": true,
     "devDependencies": {
-        "@vue/compat": "^3.2.31",
-        "@vue/compiler-sfc": "^3.2.38",
+        "@vue/babel-plugin-jsx": "^1.1.5",
         "axios": "^0.21.1",
         "coldbox-elixir": "4.0.0",
         "postcss": "^8.4.14",
@@ -18,8 +17,8 @@
     },
     "dependencies": {
         "@popperjs/core": "^2.11.6",
-        "@vue/babel-plugin-jsx": "^1.1.1",
-        "bootstrap": "^5.2.0"
+        "bootstrap": "^5.2.0",
+        "vue-router": "^4.2.5"
     },
     "scripts": {
         "dev": "webpack --node-env development",
