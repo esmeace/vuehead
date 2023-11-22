@@ -4,7 +4,9 @@
     </div>
 
     <carousel 
-        v-else :items-to-show = "1" 
+        v-else 
+        id="preso"
+        :items-to-show = "1" 
         ref="preso"
         @slide-start="onSlideStart"
     >
