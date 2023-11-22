@@ -26,7 +26,7 @@
                 ></component>
             </slide>
         </template>
-        <template #addons="{ slidesCount }">
+        <template #addons="{ slidesCount }" v-if="!isPrintView">
             <default-navigation 
                 v-if="slidesCount > 1" 
                 @next="onNext"
