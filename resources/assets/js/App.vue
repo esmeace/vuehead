@@ -21,6 +21,7 @@
                     :content  = "slide.renderedContent"
                     :class    = "getContentClass( slide.slug )"
                     :lang     = "lang"
+                    :options  = "getSlideOptions( slide )"
                     :slideIndex = "slideIndex"
                     :theme    = "theme"
                     :is-preview = "isPrintView"
@@ -140,6 +141,20 @@ export default {
 		 */
         getContentClass( slug ) {
             return "cb-" + this.getSlugEnd( slug );
+        },
+
+        /**
+		 * Get the options for the slide
+		 *
+		 * @param {object} slide The CMS slide content object
+		 */
+         getSlideOptions( slide ){
+            let options  = {}
+            let bgVideo = this.getValuefromFields( slide.customFields, "bgVideo" );
+            if( bgVideo ) {
+                options.bgVideo  = `${this.baseUrl}${bgVideo}`;
+            }
+			return options;
         },
 
 		/**
