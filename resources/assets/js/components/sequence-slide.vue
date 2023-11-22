@@ -14,6 +14,10 @@ export default {
         content: {
             type    : String,
             required: true
+        },
+        isPreview: {
+            type: Boolean,
+            default: false
         }
     },
 

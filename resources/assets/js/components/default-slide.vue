@@ -19,6 +19,10 @@ export default {
         slideIndex: {
             type: Number,
             required: true
+        },
+        isPreview: {
+            type: Boolean,
+            default: false
         }
     },
 
