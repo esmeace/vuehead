@@ -42,12 +42,12 @@
 <script>
 import { Carousel, Slide, Pagination }  from 'vue3-carousel';
 import slidesApi                        from "./api/slides";
-import { settings }                     from "./settings/presentation.js";
-import DefaultNavigation                from "./components/default-nav";
-import Cover                            from "./components/cover";
-import VideoSlide                       from "./components/video-slide";
-import DefaultSlide                     from "./components/default-slide";
-import SequenceSlide                    from "./components/sequence-slide";
+import { settings }                     from "@/settings/presentation.js";
+import DefaultNavigation                from "@/components/default-nav";
+import Cover                            from "@/components/cover";
+import VideoSlide                       from "@/components/video-slide";
+import DefaultSlide                     from "@/components/default-slide";
+import SequenceSlide                    from "@/components/sequence-slide";
 
 export default {
     name      : 'App',
