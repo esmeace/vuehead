@@ -26,9 +26,11 @@ export default {
     },
 
     mounted() {
-        let seqs = [ ...this.$refs.content.getElementsByClassName( "sequence" ) ];
-        for( var i in seqs ){
-            this.initSequence( seqs[ i ] );
+        if ( !this.isPreview ) {
+            let seqs = [ ...this.$refs.content.getElementsByClassName( "sequence" ) ];
+            for( var i in seqs ){
+                this.initSequence( seqs[ i ] );
+            }
         }
     },
 

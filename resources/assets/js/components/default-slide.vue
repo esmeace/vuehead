@@ -48,7 +48,7 @@ export default {
     },
 
     mounted() {
-        this.initVisibility();
+        if ( !this.isPreview ) this.initVisibility();
     },
 
     methods: {
