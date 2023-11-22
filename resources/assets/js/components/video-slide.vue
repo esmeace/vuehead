@@ -1,7 +1,7 @@
 <template>
     <div class="video-slide">
         <div class="video-bg">
-            <video autoplay muted loop id="soyvid">
+            <video :autoplay="!isPreview" muted loop id="soyvid">
                 <source src="/includes/static/video/space.mp4"
                         type="video/mp4">
 
