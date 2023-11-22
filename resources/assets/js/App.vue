@@ -61,7 +61,12 @@ export default {
         DefaultSlide,
         SequenceSlide
     },
-
+    props : {
+        isPrintView: {
+            type: Boolean,
+            default: false
+        }
+    },
     data() {
         return {
             slides: [],
