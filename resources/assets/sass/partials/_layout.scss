@@ -179,7 +179,7 @@ html, body, #app {
         width: 10vmin;
     }
 }
-.cb-the-head {
+.cb-the-head, .cb-head {
     img {
         position: absolute;
         left: 0;
@@ -195,7 +195,7 @@ html, body, #app {
         bottom: 0px;
     }
 }
-.cb-content-store, .cb-headless-cms {
+.cb-advantages-content-store, .cb-content-store, .cb-headless-cms {
     img {
         border-radius: 1rem;
     }
