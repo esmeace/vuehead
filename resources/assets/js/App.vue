@@ -34,9 +34,9 @@
                 @prev="onPrev"
             />
 			<pagination v-if="slidesCount > 1" />
+            <button type="button" class="btn btn-primary" @click="print">Print</button>
         </template>
-    </carousel>
-
+    </carousel>           
 </template>
 
 <script>
@@ -209,6 +209,15 @@ export default {
         onSlideStart( data ) {
             // sets the url hash
             window.location.hash = `#${this.getSlugEnd( this.slides[ data.slidingToIndex ].slug )}`;
+        },
+
+        print() {
+            var oWindow = window.open( "/main/print" );
+            window.setTimeout( function(){
+                    oWindow.focus();
+                    oWindow.print();
+                    oWindow.close();
+                }, 1500 );
         },
 		/**
 		 * Set the initial slide based on the location hash
