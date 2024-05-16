@@ -2,7 +2,7 @@
     "name":"vuehead",
     "web":{
         "rewrites":{
-            "enable":"true"
+            "enable":true
         }
     }
 }

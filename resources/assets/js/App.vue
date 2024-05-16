@@ -1,107 +1,186 @@
 <template>
-    <div v-if="!slides.length">
+    <div v-if = "!slides.length">
         Loading...
     </div>
-    <carousel :items-to-show="1" ref="preso" v-else>
-        <slide 
-            v-for="( slide, slideIdx ) in slides" 
-            :key="slide.contentID" 
-            :style="getSlideStyles( slide )"
-        >
-            <component
-                :is="getComponent( slide )" 
-                :content="slide.renderedContent" 
-                :class="getContentClass( slide.slug )"
-                :lang="lang"
-                :slideIdx="slideIdx"
-                :theme="theme"
-            ></component>
-        </slide>
 
-        <template #addons>
-        <navigation />
-        <pagination />
+    <carousel 
+        v-else 
+        id="preso"
+        :items-to-show = "1" 
+        ref="preso"
+        @slide-start="onSlideStart"
+    >
+        <template #slides>
+            <slide
+                v-for = "( slide, slideIndex ) in slides"
+                :key    = "slide.contentID"
+                :style  = "getSlideStyles( slide )"
+            >
+                <component
+                    :is       = "getComponent( slide )"
+                    :content  = "slide.renderedContent"
+                    :class    = "getContentClass( slide.slug )"
+                    :lang     = "lang"
+                    :options  = "getSlideOptions( slide )"
+                    :slideIndex = "slideIndex"
+                    :theme    = "theme"
+                    :is-preview = "isPrintView"
+                ></component>
+            </slide>
         </template>
-    </carousel>
+        <template #addons="{ slidesCount }" v-if="!isPrintView">
+            <default-navigation 
+                v-if="slidesCount > 1" 
+                @next="onNext"
+                @prev="onPrev"
+            />
+			<pagination v-if="slidesCount > 1" />
+            <button type="button" class="btn btn-primary" @click="print">Print</button>
+        </template>
+    </carousel>           
 </template>
 
 <script>
-import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel';
-import slidesApi from "./api/slides";
-import Cover from "./components/cover";
-import VideoSlide from "./components/video-slide";
-import DefaultSlide from "./components/default-slide";
-import SequenceSlide from "./components/sequence-slide";
+import { Carousel, Slide, Pagination }  from 'vue3-carousel';
+import slidesApi                        from "./api/slides";
+import { settings }                     from "@/settings/presentation.js";
+import DefaultNavigation                from "@/components/default-nav";
+import Cover                            from "@/components/cover";
+import VideoSlide                       from "@/components/video-slide";
+import DefaultSlide                     from "@/components/default-slide";
+import SequenceSlide                    from "@/components/sequence-slide";
 
 export default {
-    name: 'App',
+    name      : 'App',
     components: {
         Carousel,
         Slide,
         Pagination,
-        Navigation,
+        DefaultNavigation,
         Cover,
         VideoSlide,
         DefaultSlide,
         SequenceSlide
     },
+    props : {
+        isPrintView: {
+            type: Boolean,
+            default: false
+        }
+    },
     data() {
         return {
             slides: [],
-            lang: "en",
-            // contentStore: "headlesscb-100-mins-slides",
-            contentStore: "presentation-slides-headlesscb-slides",
-            theme: "itb-2022"
+            lang  : "en",
+            slideBackgroundColor : "#000048"
         }
     },
+
     computed: {
         globalData() { return window.globalData; },
-        baseUrl() { return this.globalData.imgsBaseURL },
-        slidesSlug() { return this.lang === 'en' ? this.contentStore : this.contentStore + '-sp' }
+        baseUrl() { return this.globalData.imageBaseUrl; },
+        slidesSlug() { return this.lang === 'en' ? this.globalData.presentation : this.globalData.presentation + '-sp' },
+        theme() {
+            return settings[ this.globalData.presentation ] ? settings[ this.globalData.presentation ].theme : "default";
+        }
+    },
+    created() {
+        // sets the theme (data-theme on root)
+        document.documentElement.dataset.theme = this.theme;
     },
     mounted() {
-        console.log( window.location.hash );
         this.fetchSlides();
     },
     methods: {
+		/**
+		 * Get the slides from the CMS
+		 */
         fetchSlides() {
-            slidesApi.fetch( this.slidesSlug, { "includes" : "children.renderedContent,children.customFields" } )
+            slidesApi.fetch(
+					this.slidesSlug,
+					{ "includes" : "children.renderedContent,children.customFields" }
+				)
 				.then( ( result ) => {
-                    this.slides = this.correctMediaURL(result.data.data.children.sort((a, b) => a.order - b.order));
+                    this.slides = this.correctMediaURL( result.data.data.children.sort( ( a, b ) => a.order - b.order ) );
                     this.setInitialSlide();
 				} )
 				.catch( ( e ) => {
+					alert( "Error getting slides" + e );
 					console.error( e );
 				} );
         },
-        correctMediaURL(slides) {
-            var corrected = slides;
-            corrected.forEach(slide => {
-               slide.renderedContent = slide.renderedContent.replaceAll(`<img src="/__media/`, `<img src="${this.baseUrl}/__media/`);
-            });
-            return corrected;
+
+		/**
+		 * This is done so that in the CMS the content can have relative images and
+		 * the UI then re-links them back to the API
+		 *
+		 * @param {*} slides The slides to correct
+		 */
+        correctMediaURL( slides ) {
+            return slides.map( slide => {
+               slide.renderedContent = slide.renderedContent.replaceAll( `src="/__media/`, `src="${this.baseUrl}/__media/` );
+			   return slide;
+            } );
         },
+
+		/**
+		 * Get the last part of the slug (the part after the last /)
+		 *
+		 * @param {string} slug The name of the slide
+		 */
         getSlugEnd( slug ) {
-            var a =  slug.split( "/" );
-            return a[ a.length - 1 ];
+            let parts = slug.split( "/" );
+            return parts[ parts.length - 1 ];
         },
+
+		/**
+		 * The content class is used to style the content of the slide
+		 * It is based on the name of the slide in the CMS
+		 *
+		 * @param {string} slug The slug of the slide
+		 */
         getContentClass( slug ) {
             return "cb-" + this.getSlugEnd( slug );
         },
-        getSlideStyles( slide ){
-            var styles = { "backgroundColor" : "#000048" }
-            var bgImage = this.getValuefromFields( slide.customFields, "bgImage" );
-            if( bgImage ) {
-                styles.backgroundImage = "url(" + this.baseUrl + "/" + bgImage + ")";
-                styles.backgroundSize = "cover";
-                styles.backgroundPosition = "center";
-                styles.backgroundRepeat = "no-repeat";
+
+        /**
+		 * Get the options for the slide
+		 *
+		 * @param {object} slide The CMS slide content object
+		 */
+         getSlideOptions( slide ){
+            let options  = {}
+            let bgVideo = this.getValuefromFields( slide.customFields, "bgVideo" );
+            if( bgVideo ) {
+                options.bgVideo  = `${this.baseUrl}${bgVideo}`;
             }
-            return styles;
+			return options;
         },
+
+		/**
+		 * Get the styles for the slide
+		 *
+		 * @param {object} slide The CMS slide content object
+		 */
+        getSlideStyles( slide ){
+            let styles  = { "backgroundColor" : this.slideBackgroundColor }
+            let bgImage = this.getValuefromFields( slide.customFields, "bgImage" );
+            if( bgImage ) {
+                styles.backgroundImage    = "url(" + this.baseUrl + "/" + bgImage + ")";
+                styles.backgroundSize     = "cover";
+                styles.backgroundPosition = "center";
+                styles.backgroundRepeat   = "no-repeat";
+            }
+			return styles;
+        },
+
+		/**
+		 * Get the component to use for the slide based on the type custom field
+		 *
+		 * @param {*} slide The CMS slide content object
+		 */
         getComponent( slide ){
-            var type = this.getValuefromFields( slide.customFields, "type" );
-            switch( type ) {
+            switch( this.getValuefromFields( slide.customFields, "type" ) ) {
                 case 'cover':
                     return "Cover";
                 case 'video':
@@ -110,29 +189,64 @@ export default {
                     return "SequenceSlide";
                 default:
                     return "DefaultSlide";
-            } 
-        },
-        getValuefromFields( customFields, key ){
-            var fieldIdx = customFields.map( field => field.key ).indexOf( key );
-            if( fieldIdx > -1 ){
-                return customFields[ fieldIdx ].value !== " " ?  customFields[ fieldIdx ].value : null; 
-            } else {
-                return null
             }
         },
+
+		/**
+		 * Get a value from the custom field. If not found, return null
+		 *
+		 * @param {*} customFields The custom fields array
+		 * @param {*} key The key to look for
+		 * @param {*} defaultValue The default value to return if not found
+		 */
+        getValuefromFields( customFields, key, defaultValue = null ){
+            let fieldIdx = customFields.map( field => field.key ).indexOf( key );
+            if( fieldIdx > -1 ){
+                return customFields[ fieldIdx ].value.trim().length > 0 ?  customFields[ fieldIdx ].value : defaultValue;
+            }
+            return defaultValue;
+        },
+        /**
+		 * Moves to next slide
+		 */
+        onNext() {
+            this.$refs.preso.next();
+        },
+        /**
+		 * Moves to previous slide
+		 */
+        onPrev() {
+            this.$refs.preso.prev();
+        },
+        /**
+		 * Handles on slide start
+		 */
+        onSlideStart( data ) {
+            // sets the url hash
+            window.location.hash = `#${this.getSlugEnd( this.slides[ data.slidingToIndex ].slug )}`;
+        },
+
+        print() {
+            var oWindow = window.open( "/main/print" );
+            window.setTimeout( function(){
+                    oWindow.focus();
+                    oWindow.print();
+                    oWindow.close();
+                }, 1500 );
+        },
+		/**
+		 * Set the initial slide based on the location hash
+		 */
         setInitialSlide(){
-            var self = this;
+            let self = this;
             if( window.location.hash ) {
-              console.log( 'here' );
-              var idx = this.slides.map( slide => "#"+self.getSlugEnd( slide.slug ) ).indexOf( window.location.hash );
-              if( idx > -1 ){
-                console.log( this.$refs.preso );
-                console.log( idx );
-                this.$nextTick( function(){
-                    this.$refs.preso.slideTo( idx );
-                } );
-              }
-            } 
+            	let index = this.slides
+			  		.map( slide => "#" + self.getSlugEnd( slide.slug ) )
+			  		.indexOf( window.location.hash );
+              	if( index > -1 ){
+					this.$nextTick( () => this.$refs.preso.slideTo( index ) );
+              	}
+            }
         }
     }
 };

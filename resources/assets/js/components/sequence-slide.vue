@@ -1,7 +1,10 @@
+<!--
+	TODO: What is this for?
+ -->
 <template>
-    <div class="sequence-slide">
+    <div class = "sequence-slide">
         <slot>
-            <div v-html="content" class="position-relative" ref="content"></div>
+            <div v-html = "content" class = "position-relative" ref = "content"></div>
         </slot>
     </div>
 </template>
@@ -9,39 +12,36 @@
 export default {
     props: {
         content: {
-            type: String,
+            type    : String,
             required: true
+        },
+        isPreview: {
+            type: Boolean,
+            default: false
         }
     },
-    data() { 
+
+    data() {
         return {};
     },
+
     mounted() {
-        let seqs = [...this.$refs.content.getElementsByClassName( "sequence" ) ];
-        for( var i in seqs ){
-            this.initSequence( seqs[ i ] );
+        if ( !this.isPreview ) {
+            let seqs = [ ...this.$refs.content.getElementsByClassName( "sequence" ) ];
+            for( var i in seqs ){
+                this.initSequence( seqs[ i ] );
+            }
         }
-        // let aNodes = [...this.$refs.content.childNodes];
-        // console.log( aNodes);
-        // let self = this;
-        // aNodes.forEach(
-        //     function ( node ) {
-        //         if( node.tagName && node.tagName === "H2" ){
-        //             node.onclick = function() { self.showElements( aNodes) };
-        //         } else if( node.tagName ) {
-        //             node.classList.add( 'invisible' );
-        //         }
-        //         console.log(`${node.tagName}`);
-        //     }
-        // )
     },
+
     methods: {
-        initSequence( seq) {
-            var self = this;
-            let aNodes = [...seq.childNodes]
-            let firstNode = null;
+
+        initSequence( seq ) {
+            var self        = this;
+            let aNodes      = [ ...seq.childNodes ]
+            let firstNode   = null;
             let hiddenNodes = [];
-            console.log( aNodes );
+            //console.log( aNodes );
             aNodes.forEach(
                 function ( node ) {
                     if( node.tagName && !firstNode ){
@@ -59,8 +59,11 @@ export default {
             }
 
         },
+
         showElement( node ){
-            if( node.classList ) node.classList.remove( 'invisible' );
+            if( node.classList ){
+				node.classList.remove( 'invisible' );
+			}
         }
     }
 };

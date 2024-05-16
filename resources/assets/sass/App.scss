@@ -3,7 +3,12 @@
 @import "~vue3-carousel/dist/carousel.css";
 
 @import './partials/variables';
+@import './themes/space-2023.scss';
+
 @import './partials/typography';
 @import './partials/effects';
 @import './partials/layout';
 @import './partials/carousel';
+
+@import './slides/speaking.scss';
+@import './slides/improved-security.scss';

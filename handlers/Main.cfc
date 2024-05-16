@@ -7,6 +7,12 @@ component extends="coldbox.system.EventHandler" {
 		prc.welcomeMessage = "Welcome to ColdBox!";
 		event.setView( "main/index" );
 	}
+	/**
+	 * Default Action
+	 */
+	function print( event, rc, prc ) {
+		event.setView( view="main/index", layout="print" );
+	}
 
 	/**
 	 * Produce some restfulf data
@@ -34,21 +40,36 @@ component extends="coldbox.system.EventHandler" {
 
 	function onRequestStart( event, rc, prc ) {
 		param prc.globalData = {};
-		/// TEMP: MOVE GET TO SERVICE AND token to LOCAL STORAGE
-		cfhttp( method="POST", charset="utf-8", url=getSystemSetting( "API_ROOT" ) & "/login", result="result" ) {
-			cfhttpparam( name="username", type="url", value=getSystemSetting( "API_USER" ));
-			cfhttpparam( name="password", type="url", value=getSystemSetting( "API_PW" ));
+
+		cfhttp(
+			method="POST",
+			charset="utf-8",
+			url="#getSystemSetting( "HCMS_URL" )#/cbapi/v1/login",
+			result="local.result"
+		) {
+			cfhttpparam( name="username", type="formfield", value=getSystemSetting( "HCMS_USERNAME" ) );
+			cfhttpparam( name="password", type="formfield", value=getSystemSetting( "HCMS_PASSWORD" ) );
 		}
-		prc.globalData[ "jwt" ] = deserializeJSON( result.filecontent ).data.tokens.access_token;
-		prc.globalData[ "apiRoot" ] = getSystemSetting( "API_ROOT" );
-		prc.globalData[ "imgsBaseURL" ] = getSystemSetting( "IMGS_BASE_URL" );
-		
+
+		if( result.status_code != 200 ) {
+			throw(
+				message : "Unable to login to API : #result.filecontent#",
+				detail: result.errordetail,
+				type: "ConnectionFailure"
+			);
+		}
+
+		prc.globalData[ "presentation" ]	= getSystemSetting( "HCMS_PRESENTATION" );
+		prc.globalData[ "jwt" ] 			= deserializeJSON( result.filecontent ).data.tokens.access_token;
+		prc.globalData[ "apiUrl" ] 			= getSystemSetting( "HCMS_URL" );
+		prc.globalData[ "imageBaseUrl" ] 	= getSystemSetting( "HCMS_URL" );
 	}
 
 	function onRequestEnd( event, rc, prc ) {
 	}
 
 	function onSessionStart( event, rc, prc ) {
+
 	}
 
 	function onSessionEnd( event, rc, prc ) {

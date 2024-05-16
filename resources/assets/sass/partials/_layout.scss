@@ -1,7 +1,34 @@
 html, body, #app {
     height: 100%;
-    font-size: 1.4rem;
 }
+.video-slide, .default-slide {
+    width: 80vw;
+}
+.default-slide {
+    .row .col {
+        img {
+            max-width: 100%;
+        }
+    }
+}
+// titles
+.js-stage-title {
+    left: 0px;
+    position: absolute;
+    top: 45vh;
+    width: 100%;
+}
+.js-stage-title-center {
+    cursor: pointer;
+    &:hover, &:focus {
+        color: var(--itb-bg-color-primary);
+    }
+}
+.js-stage-title-top{
+    transform: translateY(-40vh) scale(0.7);
+    transition: all .7s ease-in-out;
+}
+
 .corner-logo {
     height: 50px;
     margin: 1rem;
@@ -18,10 +45,12 @@ html, body, #app {
     top:0px;
     right:0%;
     bottom: 0px;
+    z-index: -1;
 
     video {
         width: 100%;
-        height: auto;
+        height: 100%;
+        object-fit: cover;
     }
 }
 .overlay {
@@ -31,25 +60,10 @@ html, body, #app {
     left: 0px;
     bottom: 0px;
     right: 0px;
+    z-index: -1;
 }
 .overlay-50 {
     background-color: rgba(21, 3, 92, 0.5);
-}
-.cb-speaking {
-    h2 {
-        white-space: nowrap;
-        font-size: 2.2rem;
-        font-family: Arial, Helvetica, sans-serif;
-
-    }
-    img {
-        border: 5px white solid;
-        border-radius: 50%;
-        overflow: hidden;
-        box-shadow: 0 5px 15px 0px rgba(0,0,0,0.6);
-        transform: translatey(0px);
-        animation: float 6s ease-in-out infinite;
-    }
 }
 .cover-astro-body {
     height: 240px;
@@ -74,6 +88,16 @@ html, body, #app {
     transform: translateY( -850px );
     animation: headon 1s 6s forwards ease-in-out
 }
+.print-page {
+    .cover-astro-head-02 {
+        transform: none;
+        animation: none;
+    }
+    .cover-astro-head {
+        display: none;
+        animation: none;
+    }   
+}
 .cb-cover {
     padding: var( --itb-cover-content-padding );
     text-align: var( --itb-cover-text-align );
@@ -81,7 +105,7 @@ html, body, #app {
     height: var( --itb-cover-content-height );
 }
 [ data-theme="itb-2023" ] {
-    .cover-logo { 
+    .cover-logo {
         max-width: 100px;
         margin: 20px 0px 40px;
     }
@@ -92,21 +116,21 @@ html, body, #app {
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        
+
         .slide-footer {
             color: var( --itb-text-primary );
 
             span {
                 font-size: 1rem;
             }
-            
+
             ul {
                 padding-left: 0;
                 list-style: none;
                 li:not(:last-child) {
                     margin-right: 0.5rem;
                 }
-                
+
                 li {
                     color: #fff;
                     display: inline-block;
@@ -130,9 +154,6 @@ html, body, #app {
         left: auto;
     }
 }
-.cb-speaking {
-    width: 75vw;
-}
 .cb-traditional-vs-headless {
     h2 {
         font-size: 1.8rem;
@@ -151,14 +172,14 @@ html, body, #app {
     img {
         max-width: 200px;
         width: 25vmin;
-        
+		cursor: pointer;
     }
     img:first-child {
         max-width: 100px;
         width: 10vmin;
     }
 }
-.cb-the-head {
+.cb-the-head, .cb-head {
     img {
         position: absolute;
         left: 0;
@@ -174,11 +195,9 @@ html, body, #app {
         bottom: 0px;
     }
 }
-.cb-contentstore, .cb-headless-cms {
-    width: 90%;
+.cb-advantages-content-store, .cb-content-store, .cb-headless-cms {
     img {
         border-radius: 1rem;
-        max-width: 90%;
     }
     .col {
         display: flex;
@@ -190,6 +209,12 @@ html, body, #app {
         max-height: 200px;
     }
 }
+.cb-forms-of-communication{
+	img {
+		max-width: 100%;
+	}
+}
+
 .trans-opacity {
     opacity: 1;
     transition: opacity .5s;
@@ -198,6 +223,13 @@ html, body, #app {
     opacity: 0;
 }
 @media print {
+    .default-slide, .video-slide {
+        width: 80%;
+
+        .slide-content {
+            width: 100%;
+        }
+    }
     .cover-astro-body {
         height: 190px;
     }

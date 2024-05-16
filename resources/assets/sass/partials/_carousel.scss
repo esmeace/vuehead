@@ -7,8 +7,52 @@
 .carousel__next {
     right: 50px;
 }
+.carousel__prev, .carousel__next {
+    box-sizing: content-box;
+    background: var(--vc-nav-background);
+    border-radius: var(--vc-nav-border-radius);
+    width: var(--vc-nav-width);
+    height: var(--vc-nav-height);
+    text-align: center;
+    font-size: var(--vc-nav-height);
+    padding: 0;
+    color: var(--vc-nav-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    border: 0;
+    cursor: pointer;
+    margin: 0 10px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.carousel__pagination {
+    flex-wrap: wrap;
+    padding: 0 2rem;
+}
+.print-page {
+    .carousel, .carousel__viewport, .carousel__track {
+        height: auto;
+    }
+    .carousel__viewport {
+        overflow-y:visible;
+    }
+    .carousel__track {
+        display: block;
+    }
+    li.carousel__slide {
+        height: 100vh;
+    }
+}
 @media print {
+    @page {size: A4 landscape; }
     .carousel__prev,.carousel__next,.carousel__pagination {
         display: none;
+    }
+    li.carousel__slide {
+        break-after: always;
+        page-break-inside: avoid;
+        height: 100vh;
     }
 }

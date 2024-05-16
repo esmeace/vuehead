@@ -15,7 +15,7 @@
 		 */
 		coldbox = {
 			// Application Setup
-			appName                  : getSystemSetting( "APPNAME", "Your app name here" ),
+			appName                  : getSystemSetting( "APPNAME", "Vue Head" ),
 			eventName                : "event",
 			// Development Settings
 			reinitPassword           : "",
@@ -31,7 +31,7 @@
 			sessionEndHandler        : "",
 			missingTemplateHandler   : "",
 			// Extension Points
-			applicationHelper        : "includes/helpers/ApplicationHelper.cfm",
+			applicationHelper        : "",
 			viewsHelper              : "",
 			modulesExternalLocation  : [],
 			viewsExternalLocation    : "",
@@ -59,7 +59,8 @@
 		 * Custom Settings
 		 * --------------------------------------------------------------------------
 		 */
-		settings = {};
+		settings = {
+		};
 
 		/**
 		 * --------------------------------------------------------------------------
@@ -72,7 +73,7 @@
 		 *
 		 * Uncomment to use, but make sure your .env ENVIRONMENT key is also removed.
 		 */
-		// environments = { development : "localhost,^127\.0\.0\.1" };
+		environments = { development : "localhost,^127\.0\.0\.1" };
 
 		/**
 		 * --------------------------------------------------------------------------
